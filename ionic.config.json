@@ -1,0 +1,7 @@
+{
+  "name": "HowmApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
