@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyA1NASOM_u2IMWmrqxxxcZsK0ULtC-2QSs",
+    authDomain: "liquidity-app-6d8cb.firebaseapp.com",
+    projectId: "liquidity-app-6d8cb",
+    storageBucket: "liquidity-app-6d8cb.appspot.com",
+    messagingSenderId: "932729812346",
+    appId: "1:932729812346:web:b7a643e7b8e4b41fe752c3",
+    // databaseURL: "https://howmdev-app.firebaseio.com",
+
+  }
 };
 
 /*
@@ -14,3 +24,5 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+
