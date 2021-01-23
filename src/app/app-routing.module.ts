@@ -105,6 +105,10 @@ const routes: Routes = [
   {
     path: 'liquororderhistroy-details',
     loadChildren: () => import('./liquororderhistroy-details/liquororderhistroy-details.module').then( m => m.LiquororderhistroyDetailsPageModule)
+  },
+  {
+    path: 'vault-redeem',
+    loadChildren: () => import('./vault-redeem/vault-redeem.module').then( m => m.VaultRedeemPageModule)
   }
 
 ];
