@@ -3,6 +3,7 @@ import { HelperProvider } from 'src/app/services/helper.service';
 import { Component, OnInit } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-vaultselected',
@@ -15,17 +16,20 @@ export class VaultselectedPage implements OnInit {
   liquorCategory : any = []; // liquor Category
   categoryItems : any = [];
   selectedMainCategory : any = 0;
-  // comment
+  public userId : any = 0;
   constructor(
     private userDetails: UserDetailsService,
     private helper: HelperProvider,
+    private authService : AuthenticationService,
     private _router: Router){
       this.addToCart = {carts: []};
+      this.userId = localStorage.getItem('user_id');
   }
 
   ngOnInit() {
     this.getLiquorMainCategory(); // getting main Category
     this.getLiquorCategory(); // getting Liquor Category
+    console.log('this is user Id' + this.userId);
   }
 
   getLiquorMainCategory(){
@@ -69,11 +73,10 @@ export class VaultselectedPage implements OnInit {
     this.cartPrice = 0.00; // setting the Cart Price to be Zero
     this.addToCart.carts = this.addToCart.carts.filter(({ itemId }) => itemId !== categoryItem.id); // removing the Duplicasy or 0 selected from Local variable
     if(valueSelected != 0){
-      let userId : any = 1;
       // store the Data Locally
       this.addToCart.carts.push({
         itemId : categoryItem.id,
-        userId : userId,
+        userId : this.userId,
         liquorCategoryId : categoryItem.liquorCategoryId,
         itemsCount : valueSelected,
         BigLiquorMaxPrice: categoryItem.BigLiquorMaxPrice,
@@ -93,25 +96,11 @@ export class VaultselectedPage implements OnInit {
   }
 
   compareNDreview(){
-    // deleting all cartItem for this User if Found Previously
-    /*this.userDetails.deleteSelectedItemforUserFromCart().subscribe(
-      res => {console.log(res)},
-      err => {console.log(err)}
-    );*/
-    // Storing the data into cart
-    /*this.addToCart.carts.forEach(function (value) {
-      this.userDetails.addSelectedItemToCart(value).subscribe(
-        res => {console.log(res)},
-        err => {console.log(err)}
-      );
-    });*/
-    
     // Storing the data Locally on v8 browser
     localStorage.setItem('cartsData',JSON.stringify(this.addToCart.carts));
     localStorage.setItem('cartsPrice',JSON.stringify(this.cartPrice));
     return this._router.navigate(['/vaultcompare']);
   }
-
 }
 
 interface CARTSITEM {

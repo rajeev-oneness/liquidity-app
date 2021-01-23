@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 import { HelperProvider } from '../services/helper.service';
 import { UserDetailsService } from '../services/user-details.service';
 
@@ -14,7 +16,8 @@ export class VaultcomparePage implements OnInit {
   };
   public cartPrice : any = 0;
 
-  constructor(private _userDetailsApi:UserDetailsService,private helper:HelperProvider
+  constructor(private _userDetailsApi:UserDetailsService,private helper:HelperProvider,
+    private _authService : AuthenticationService,private _router:Router,
   ) {
     this.addToCart = {carts: []};
   }
@@ -35,28 +38,22 @@ export class VaultcomparePage implements OnInit {
     this._userDetailsApi.getLiquorShops().subscribe(
       res => {
         this.outletDetails = res;
-        console.log(res);
         this.helper.dismissLoader();
       },
       err => {this.helper.dismissLoader();}
     )
   }
 
-  // public addNewCartItem(categoryItem,valueSelected) : void {
-  //   this.addToCart.carts.push({
-  //     itemId : categoryItem.id,
-  //     liquorCategoryId : categoryItem.liquorCategoryId,
-  //     itemsCount : valueSelected,
-  //     BigLiquorMaxPrice: categoryItem.BigLiquorMaxPrice,
-  //     BigLiquorMinPrice : categoryItem.BigLiquorMinPrice,
-  //     BigLiquorNormalPrice: categoryItem.BigLiquorNormalPrice,
-  //     liquorCategory: categoryItem.liquorCategory,
-  //     liquorShopId: categoryItem.liquorShopId,
-  //   });
-  // }
-
   checkout_btn(){
 
+    this.addToCart.carts.forEach((value) => {
+      this.saveOrderAPI(value);
+    });
+    this._router.navigate(['/vaulthome']);
+  }
+
+  saveOrderAPI(value){
+    this._authService.addVoultOrder(value);
   }
 
 }

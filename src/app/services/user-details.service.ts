@@ -271,7 +271,6 @@ export class UserDetailsService {
             .doc(itemid.toString())
             .update({
                  liquorName:liquorName
-
             });
     }
     deleteLiquor(pid) {
@@ -357,25 +356,9 @@ getLiquorItemsByCatgory(categoryMainId){
     ).valueChanges();
 }
 
-deleteSelectedItemforUserFromCart(){
-    return this.afs.collection('/cartItem').valueChanges();
-}
-
-addSelectedItemToCart(itemObject,quantity,userId) {
-    let id =new Date().getTime();
-    this.afs.doc(`/cartItem/${id}`).set({
-        id : id,
-        itemId : itemObject.itemId,
-        userId : userId,
-        liquorCategoryId : itemObject.liquorCategoryId,
-        itemsCount : quantity,
-        BigLiquorMaxPrice : itemObject.BigLiquorMaxPrice,
-        BigLiquorMinPrice : itemObject.BigLiquorMinPrice,
-        BigLiquorNormalPrice : itemObject.BigLiquorNormalPrice,
-        liquorCategory : itemObject.liquorCategory,
-        liquorShopId : itemObject.liquorShopId,
-        liquorName : itemObject.liquorName,
-    }, { merge: true });
+getVaultOrderHistory(userId){
+    return this.afs.collection('/voultOrderHistory', ref => ref.where('userId', '==', userId)
+    ).valueChanges();
 }
 
 }
