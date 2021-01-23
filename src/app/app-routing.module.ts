@@ -90,7 +90,23 @@ const routes: Routes = [
   {
     path: 'vaultbalance',
     loadChildren: () => import('./vaultbalance/vaultbalance.module').then( m => m.VaultbalancePageModule)
+  },  {
+    path: 'editprofile',
+    loadChildren: () => import('./editprofile/editprofile.module').then( m => m.EditprofilePageModule)
+  },
+  {
+    path: 'liquororderhistroy',
+    loadChildren: () => import('./liquororderhistroy/liquororderhistroy.module').then( m => m.LiquororderhistroyPageModule)
+  },
+  {
+    path: 'myprofile',
+    loadChildren: () => import('./myprofile/myprofile.module').then( m => m.MyprofilePageModule)
+  },
+  {
+    path: 'liquororderhistroy-details',
+    loadChildren: () => import('./liquororderhistroy-details/liquororderhistroy-details.module').then( m => m.LiquororderhistroyDetailsPageModule)
   }
+
 ];
 
 @NgModule({
