@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HelperProvider } from '../services/helper.service';
 import { UserDetailsService } from '../services/user-details.service';
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vaultbalance',
@@ -13,7 +14,8 @@ export class VaultbalancePage implements OnInit {
   public userId : any = 0;
   constructor(
     private _userDetails : UserDetailsService,
-    private helper : HelperProvider
+    private helper : HelperProvider,
+    private _router : Router,
   ) {
     this.userId = localStorage.getItem('user_id');
   }
@@ -46,7 +48,7 @@ export class VaultbalancePage implements OnInit {
   }
 
   public redeem(orderDetails){
-    
+    this._router.navigate(['/vault-redeem/'+orderDetails.id]);
   }
 }
 

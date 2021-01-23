@@ -394,4 +394,9 @@ getVaultOrderHistory(userId){
     ).valueChanges();
 }
 
+getVaultOrderDetailsById(orderId,userId){
+    return this.afs.collection('/voultOrderHistory', ref => ref.where('id', '==', orderId).where('userId','==',userId)
+    ).valueChanges();
+}
+
 }

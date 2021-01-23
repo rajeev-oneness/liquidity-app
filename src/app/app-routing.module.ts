@@ -90,7 +90,8 @@ const routes: Routes = [
   {
     path: 'vaultbalance',
     loadChildren: () => import('./vaultbalance/vaultbalance.module').then( m => m.VaultbalancePageModule)
-  },  {
+  },
+  {
     path: 'editprofile',
     loadChildren: () => import('./editprofile/editprofile.module').then( m => m.EditprofilePageModule)
   },
@@ -107,7 +108,7 @@ const routes: Routes = [
     loadChildren: () => import('./liquororderhistroy-details/liquororderhistroy-details.module').then( m => m.LiquororderhistroyDetailsPageModule)
   },
   {
-    path: 'vault-redeem',
+    path: 'vault-redeem/:vaultOrderId',
     loadChildren: () => import('./vault-redeem/vault-redeem.module').then( m => m.VaultRedeemPageModule)
   }
 
