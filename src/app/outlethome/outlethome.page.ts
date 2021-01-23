@@ -46,7 +46,7 @@ export class OutlethomePage implements OnInit {
     this.drinks='liquor';
     this.scotch='premium-scotch';
     console.log(this.scotch);
-
+    this.addToCart = {carts: []};
   }
 
   ngOnInit() {
@@ -153,24 +153,24 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
 
    
 
-      addedToCart(itemName,unit,cost){
-        if (cost!=0) {
-          this.count_CartItem=this.count_CartItem+1;
-        }
-        console.log(this.count_CartItem);
-        this.final_cart_price=Number(this.cartTotal_unit50) +Number(this.cartTotal_unit25) +Number(this.cartTotal_unit0) ;
-        console.log(this.final_cart_price);
-        this.checkout.push({
-          liquorName:itemName,
-          liquorUnit:unit,
-          liquorPrice:cost
+      // addedToCart(itemName,unit,cost){
+      //   if (cost!=0) {
+      //     this.count_CartItem=this.count_CartItem+1;
+      //   }
+      //   console.log(this.count_CartItem);
+      //   this.final_cart_price=Number(this.cartTotal_unit50) +Number(this.cartTotal_unit25) +Number(this.cartTotal_unit0) ;
+      //   console.log(this.final_cart_price);
+      //   this.checkout.push({
+      //     liquorName:itemName,
+      //     liquorUnit:unit,
+      //     liquorPrice:cost
           
-      });
-      this.checkout_final.push(...this.checkout);
-      this.checkout=[];
+      // });
+      // this.checkout_final.push(...this.checkout);
+      // this.checkout=[];
 
       
-        }
+      //   }
 
         checkout_btn(){
           let uId = this.authService.getUserId();
@@ -199,169 +199,113 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
         }
 
         plusss(item){      // minus functionality
-          console.log("Price----???",this.items_count);
-          if (Number(item.counter) <=0) {
-
-          }else{
-            let uId = this.authService.getUserId();
-            this.all_liquor_categorywise.find(x => x.id === item.id).counter = Number(item.counter)-1;
-            this.userDetails.getCartData(uId).subscribe(
-              data => {
-                  this.cart_items = data;
-                  console.log(data)
-                  console.log("arrLength>>",this.cart_items.length)
-                  this.helper.dismissLoader();
-              },
-              err => {
-                  console.log(err);
-                  this.helper.dismissLoader();
-              }
-          );
-          if (this.cart_items.length==0) {
-            this.authService.addCart(uId,this.all_liquor_categorywise,this.final_cart_price); 
-              this.checkout_final=[];
-          }else{
-            this.userDetails.UpdateCartData('cartItem',this.cart_items[0].id,this.all_liquor_categorywise,this.final_cart_price);
-            
-          }   
+          this.final_cart_value=0;
+          this.addToCart.carts = this.addToCart.carts.filter(({ itemId }) => itemId !== item.id); // removing the Duplicasy or 0 selected from Local variable
+          if(item.counter <= 0){}
+          else{
+            item.counter -= 1;
+            this.addToCart.carts.push({
+              counter : item.counter,
+              itemId : item.id,
+              BigLiquorNormalPrice:item.BigLiquorNormalPrice,
+              liquorName:item.liquorName,
+              total:String( parseFloat(item.counter) * parseFloat(item.BigLiquorNormalPrice)), 
+            }); 
           }
+          let calculatePrice = 0;
+          this.addToCart.carts.forEach(function (value) {
+            calculatePrice += value.counter * parseFloat(value.BigLiquorNormalPrice);
+          });
+          this.final_cart_value = calculatePrice; 
+          console.log(">>>",this.addToCart.carts)
+
+          let uId = this.authService.getUserId();
+          // this.all_liquor_categorywise.find(x => x.id === item.id).counter = Number(item.counter)-1;
+          
+        //   this.userDetails.getCartData(uId).subscribe(
+        //     data => {
+        //         this.cart_items = data;
+        //         console.log(data)
+        //         console.log("arrLength>>",this.cart_items.length)
+        //         this.helper.dismissLoader();
+        //     },
+        //     err => {
+        //         console.log(err);
+        //         this.helper.dismissLoader();
+        //     }
+        // );
 
           
-          
-        }
-        // minusss(item){     // plus functionality
-        //   console.log("Price++++???",name);
-        //   this.all_liquor_categorywise.find(x => x.id === item.id).counter = Number(item.counter)+1;
-        //   this.final_cart_count=0;
-        //   this.count_CartItem=0;
-        //   this.cartPrice=0;
-        //   this.final_cart_price=0;
-        //   for (let i = 0; i < this.all_liquor_categorywise.length; i++) {
-        //     console.log(">>>>>>>>",this.all_liquor_categorywise[i].counter);
-        //     this.count_CartItem=Number(this.all_liquor_categorywise[i].counter);
-        //     this.final_cart_count=Number (this.final_cart_count)+Number(this.count_CartItem);
-
-        //     this.cartPrice=Number(this.all_liquor_categorywise[i].counter)*Number(this.all_liquor_categorywise[i].BigLiquorNormalPrice)
-        //     this.final_cart_price=Number (this.final_cart_price)+Number(this.cartPrice);
-        //     console.log(this.final_cart_count,this.final_cart_price);
-
-        //   }
-        //   console.log(this.all_liquor_categorywise);
-        //   let uId = this.authService.getUserId();
-
-        //   this.userDetails.getCartData(uId).subscribe(
-        //     data => {
-        //         this.cart_items = data;
-        //         console.log("cart_items?????",data)
-        //         this.final_cart_items=this.cart_items[0].cart_items;
-
-        //         console.log("arrLength>>",this.final_cart_items)
-        //         this.helper.dismissLoader();
-        //     },
-        //     err => {
-        //         console.log(err);
-        //         this.helper.dismissLoader();
-        //     }
-        // );
-        // if (this.cart_items.length==0) {
-        //   this.authService.addCart(uId,this.all_liquor_categorywise,this.final_cart_price); 
-        //   this.userDetails.getCartData(uId).subscribe(
-        //     data => {
-        //         this.cart_items = data;
-        //         console.log("cart_items?????",data)
-        //         this.final_cart_items=this.cart_items[0].cart_items;
-
-        //         console.log("arrLength>>",this.final_cart_items)
-        //         this.helper.dismissLoader();
-        //     },
-        //     err => {
-        //         console.log(err);
-        //         this.helper.dismissLoader();
-        //     }
-        // );
-        //     this.checkout_final=[];
-        //     for (let k = 0; k < this.final_cart_items.length; k++) {
-        //       var index = this.final_cart_items.findIndex(x=>x.counter === '0');
-        //       console.log("index???",index);
-        //       this.final_cart_items.splice(index, 1);
-        //     }
-        //     console.log("final_cart_items.............",this.final_cart_items);
-        // }else{
-        //   this.userDetails.getCartData(uId).subscribe(
-        //     data => {
-        //         this.cart_items = data;
-        //         console.log("cart_items?????",data)
-        //         this.final_cart_items=this.cart_items[0].cart_items;
-
-        //         console.log("arrLength>>",this.final_cart_items)
-        //         this.helper.dismissLoader();
-        //     },
-        //     err => {
-        //         console.log(err);
-        //         this.helper.dismissLoader();
-        //     }
-        // );
-        //   console.log("final_cart_items.............",this.final_cart_items);
-        //   this.userDetails.UpdateCartData('cartItem',this.cart_items[0].id,this.all_liquor_categorywise,this.final_cart_price);
-        //   for (let k = 0; k < this.final_cart_items.length; k++) {
-        //     var index = this.final_cart_items.findIndex(x=>x.counter === "0");
-        //     console.log("index???",index);
-        //     this.final_cart_items.splice(index, 1);
-        //   }
-        //   console.log("final_cart_items.............",this.final_cart_items);
-        // }   
-        // }
+          }
         gotoCart(){
           this.navCtrl.navigateForward('/cart');
 
         }
-
+        public final_cart_value : any =0;
         minusss(item){     // plus functionality
-          this.all_liquor_categorywise.find(x => x.id === item.id).counter = Number(item.counter)+1;
-          this.final_cart_count=0;
-          this.count_CartItem=0;
-          this.cartPrice=0;
-          this.final_cart_price=0;
-          for (let i = 0; i < this.all_liquor_categorywise.length; i++) {
-            console.log(">>>>>>>>",this.all_liquor_categorywise[i].counter);
-            this.count_CartItem=Number(this.all_liquor_categorywise[i].counter);
-            this.final_cart_count=Number (this.final_cart_count)+Number(this.count_CartItem);
 
-            this.cartPrice=Number(this.all_liquor_categorywise[i].counter)*Number(this.all_liquor_categorywise[i].BigLiquorNormalPrice)
-            this.final_cart_price=Number (this.final_cart_price)+Number(this.cartPrice);
-            console.log(this.final_cart_count,this.final_cart_price);
+          this.final_cart_value=0;
+          this.addToCart.carts = this.addToCart.carts.filter(({ itemId }) => itemId !== item.id); // removing the Duplicasy or 0 selected from Local variable
+          item.counter =parseInt(item.counter)  + 1;
+          this.addToCart.carts.push({
+            counter : item.counter,
+            itemId : item.id,
+            BigLiquorNormalPrice:item.BigLiquorNormalPrice,
+            liquorName:item.liquorName,
+            total:String( parseFloat(item.counter) * parseFloat(item.BigLiquorNormalPrice)), 
+          });
+          let calculatePrice = 0;
+          this.addToCart.carts.forEach(function (value) {
+            calculatePrice += value.counter * parseFloat(value.BigLiquorNormalPrice);
+          });
+          this.final_cart_value = calculatePrice; 
 
-          }
-          console.log(this.all_liquor_categorywise);
-          let uId = this.authService.getUserId();
 
-          
-          if (this.final_cart_items.length>0) {
-            for (let j = 0; j < this.final_cart_items.length; j++) {
-              if (item.liquorName===this.final_cart_items[j].liquorName) {
-                this.final_cart_items.find(x => x.id === item.id).counter = Number(item.counter);
 
-              }else{
-                this.update_cart.push({
-                  id:item.id,
-                  liquorName:item.liquorName,
-                  counter:item.counter,
-                  BigLiquorNormalPrice:item.BigLiquorNormalPrice,
-                })
-                this.final_cart_items.push(...this.update_cart)
-              }
-            }
+
+
+
+          // this.all_liquor_categorywise.find(x => x.id === item.id).counter = Number(item.counter)+1;
+          // this.final_cart_value = 0;
+          // console.log("final_cart_items................................",this.final_cart_items);
+          // this.addToCart.carts = this.addToCart.carts.filter(({ itemId }) => itemId !== item.id); // removing the Duplicasy or 0 selected from Local variable
+          // this.addToCart.carts.push({
+          //   counter : item.counter,
+          //   itemId : item.id,
+          //   BigLiquorNormalPrice:item.BigLiquorNormalPrice,
+          //   liquorName:item.liquorName,
+          //   total:String( parseFloat(item.counter) * parseFloat(item.BigLiquorNormalPrice)), 
+          // });
+          // let calculatePrice = 0;
+          // this.addToCart.carts.forEach(function (value) {
+          //   calculatePrice += value.counter * parseFloat(value.BigLiquorNormalPrice);
+          // });
+          // this.final_cart_value = calculatePrice;
+          // console.log("+++++++++++++",this.addToCart.carts)
+
+
+
+        }
+
+        public addToCart: {
+          carts: CARTSITEM[];
+        };
+        getthisCounter(item){
+          let value = this.addToCart.carts.find(({ itemId }) => itemId === item.id);
+          if(value == undefined){
+            return 0;
           }else{
-            this.final_cart_items.push({
-              id:item.id,
-              liquorName:item.liquorName,
-              counter:item.counter,
-              BigLiquorNormalPrice:item.BigLiquorNormalPrice,
-            })
+            return value.counter;
           }
-          console.log("final_cart_items................................",this.final_cart_items);
-          
         }
 
 
+}
+
+interface CARTSITEM {
+  counter : number,
+  itemId : string,
+  BigLiquorNormalPrice:string,
+  liquorName:string,
+  total:string,
 }

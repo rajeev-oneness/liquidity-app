@@ -74,7 +74,7 @@
 						  <div (click)="plusss(item)">
 							<span class="plus" >+</span>
 						  </div>
-						  <p>{{item.counter}}</p>
+						  <p>{{getthisCounter(item)}}</p>
 						  <div (click)="minusss(item)">
 							<span class="minus" >-</span>
 						  </div>
@@ -468,8 +468,8 @@
   	<div class="footer_item_start">
   		<img src="assets/cart.png">
   		<div class="item_total">
-  			<p><small>{{final_cart_count}} ITEM IN CART</small></p>
-  			<p class="price_end">₹ {{final_cart_price}}.00</p>
+  			<p><small>{{addToCart.carts.length}} ITEM IN CART</small></p>
+  			<p class="price_end">₹ {{final_cart_value}}.00</p>
   			<p><small>plus taxes*</small></p>
   		</div>
   	</div>

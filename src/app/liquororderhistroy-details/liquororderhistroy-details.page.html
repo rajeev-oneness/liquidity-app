@@ -1,9 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>liquororderhistroy-details</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button icon="arrow-back-outline" defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Order Summary</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content *ngIf="all_order">
+  <div class="bottom_button">
+    <p>shop name</p>
+    <p>{{all_order.shopName}}</p>
+    <p>shop img url</p>
+    <p>{{all_order.shopImg}}</p>
+    <p>Order id</p>
+    <p>{{all_order.orderId}}</p>
+    <p>paid Using</p>
+    <p>{{all_order.paidUsing}}</p>
+    <p>liqudity Order Code</p>
+    <p>{{all_order.liqudityOrderCode}}</p>
+    <div *ngFor="let item of all_liquor_order_summary">
+    <h4 >Order Summery</h4>
+    <p>liquor name</p>
+    <p>{{item.liquorName}}</p>
+    <p>{{item.liqourCount}}x{{item.liqourPrice}}</p>
+  </div>
+  <p>Subtotal</p>
+    <p>{{all_order.subtotal}}</p>
+    <p>Restrurent Charge</p>
+    <p>{{all_order.restrurentPromo}}</p>
+    <p>Total</p>
+    <p>{{all_order.total}}</p>
+  </div>
 </ion-content>
