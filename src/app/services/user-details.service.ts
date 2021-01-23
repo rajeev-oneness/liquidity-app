@@ -271,7 +271,6 @@ export class UserDetailsService {
             .doc(itemid.toString())
             .update({
                  liquorName:liquorName
-
             });
     }
     deleteLiquor(pid) {
@@ -363,6 +362,7 @@ getLiquorItemsByCatgory(categoryMainId){
     ).valueChanges();
 }
 
+
 getLiquorOrderHistory(user_id){
     return this.afs.collection('/liquorOrderHistory', ref => ref.where('user_id', '==', user_id)
     ).valueChanges();
@@ -387,6 +387,10 @@ addSelectedItemToCart(itemObject,quantity,userId) {
         liquorShopId : itemObject.liquorShopId,
         liquorName : itemObject.liquorName,
     }, { merge: true });
+
+getVaultOrderHistory(userId){
+    return this.afs.collection('/voultOrderHistory', ref => ref.where('userId', '==', userId)
+    ).valueChanges();
 }
 
 }

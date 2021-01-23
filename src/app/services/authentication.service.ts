@@ -17,6 +17,7 @@ export class AuthenticationService {
   authenticationState = new BehaviorSubject(false);
 
   authState: any = null;
+
   id=0;
   constructor(
     private plt: Platform,
@@ -28,10 +29,9 @@ export class AuthenticationService {
     this.plt.ready().then(() => {
       this.afAuth.authState.subscribe((auth) => {
         this.authState = auth;
-        console.log('Authservice AuthState : ', this.authState.email);
+        // console.log('Authservice AuthState : ', this.authState.email);
         localStorage.setItem("mail",this.authState.email);
         this.authenticationState.next(auth !== null);
-
       });
     });
   }
@@ -286,5 +286,59 @@ export class AuthenticationService {
            cart_items:final_cart,
            totalCost:total_value
           }, { merge: true });
+  }
+
+  // deleteSelectedItemforUserFromCart(itemObject,userId){
+  //   return this.afs.collection('/valultCartItem', ref =>
+  //         ref.where('userId', '==', userId).where('itemId', '==', itemObject.id)
+  //   ).delete();
+  // }
+
+  // addSelectedItemToCart(itemObject,valueSelected,userId) {
+  //     let id =new Date().getTime();
+  //     this.afs.doc(`/valultCartItem/${id}`).set({
+  //         id : id,
+  //         itemId : itemObject.id,
+  //         userId : userId,
+  //         liquorCategoryId : itemObject.liquorCategoryId,
+  //         itemsCount : valueSelected,
+  //         BigLiquorMaxPrice : itemObject.BigLiquorMaxPrice,
+  //         BigLiquorMinPrice : itemObject.BigLiquorMinPrice,
+  //         BigLiquorNormalPrice : itemObject.BigLiquorNormalPrice,
+  //         liquorCategory : itemObject.liquorCategory,
+  //         liquorShopId : itemObject.liquorShopId,
+  //         liquorName : itemObject.liquorName,
+  //     }, { merge: true });
+  // }
+
+    //get date now function
+  getNowDate() {
+      var returnDate = "";var today = new Date();
+      var dd = today.getDate();var mm = today.getMonth() + 1;
+      var yyyy = today.getFullYear();
+      if (dd < 10) {returnDate += `0${dd}.`;
+      } else {returnDate += `${dd}.`;
+      }
+      if (mm < 10) {returnDate += `0${mm}.`;
+      } else {returnDate += `${mm}.`;}
+      returnDate += yyyy;
+      return returnDate;
+  }
+
+  addVoultOrder(cartData){
+    let id =new Date().getTime();
+    this.afs.doc(`/voultOrderHistory/${id}`).set({
+      id : id,
+      itemId : cartData.itemId,
+      totalUnit : cartData.itemsCount,
+      price : parseFloat(cartData.itemsCount) * parseFloat(cartData.BigLiquorNormalPrice),
+      redeemed : '0',
+      liquorName : cartData.liquorName,
+      liquorShopId : cartData.liquorShopId,
+      userId : cartData.userId,
+      orderedDate : this.getNowDate(),
+      liquorCategory : cartData.liquorCategory,
+      liquorCategoryId : cartData.liquorCategoryId,
+    });
   }
 }

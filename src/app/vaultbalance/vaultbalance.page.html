@@ -21,120 +21,22 @@
 <div class="title_bar">
   <h2 class="title">Orders</h2>
 </div>
-<div class="order_list">
+<div class="order_list" *ngFor="let order of orderDetails">
   <ion-item>
     <ion-thumbnail slot="start">
         <img src="assets/Clip_Group.png">
     </ion-thumbnail>
     <ion-label>
-      <h3>Black Dog Centenary</h3>
-            <p>Order ID: <span class="bold_count">V1718B1517222832774</span></p>
-            <p>Category: <span class="bold_count">Trend Setters</span></p>
-            <p>Price: <span class="bold_count">₹ 4000</span> <span class="date">DATE: 29/01/2018</span></p>
+          <h3>{{order.liquorName}}</h3>
+            <p>Order ID: <span class="bold_count">{{order.id}}</span></p>
+            <p>Category: <span class="bold_count">{{order.liquorCategory}}</span></p>
+            <p>Price: <span class="bold_count">₹ {{order.price}}</span> <span class="date">DATE: {{order.orderedDate}}</span></p>
             <div class="btn_grp">
-              <ion-button fill="outline">REDEEM</ion-button>
-              <ion-button fill="outline">VIEW BALANCE</ion-button>
+              <ion-button fill="outline" (click)="redeem(order)">REDEEM</ion-button>
+              <ion-button fill="outline" (click)="viewBalance(order)">VIEW BALANCE</ion-button>
             </div>
     </ion-label>
   </ion-item>
-  <div class="view_balance">
-    <ion-grid>
-      <ion-row class="ion-no-padding">
-        <ion-col size="4">
-          <div class="unit">
-            <p>Total Units <span>25</span></p>
-          </div>
-        </ion-col>
-        <ion-col size="4">
-          <div class="unit">
-            <p>Units Redeemed <span>5</span></p>
-          </div>
-        </ion-col>
-        <ion-col size="4">
-          <div class="unit">
-            <p>Remaining Units <span>20</span></p>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="4">
-          <p class="content ion-text-left">OUTLET</p>
-        </ion-col>
-        <ion-col size="4">
-          <p class="content ion-text-center">DATE</p>
-        </ion-col>
-        <ion-col size="4">
-          <p class="content ion-text-right">UNITS</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="4">
-          <p class="content black ion-text-left">Orko’ss Restaurant</p>
-        </ion-col>
-        <ion-col size="4">
-          <p class="content black ion-text-center">29/01/2018</p>
-        </ion-col>
-        <ion-col size="4">
-          <p class="content black ion-text-right">3</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="4">
-          <p class="content black ion-text-left">Orko’ss Restaurant</p>
-        </ion-col>
-        <ion-col size="4">
-          <p class="content black ion-text-center">29/01/2018</p>
-        </ion-col>
-        <ion-col size="4">
-          <p class="content black ion-text-right">3</p>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-  <ion-item>
-    <ion-thumbnail slot="start">
-        <img src="assets/Clip_Group.png">
-    </ion-thumbnail>
-    <ion-label>
-      <h3>Black Dog Centenary</h3>
-            <p>Order ID: <span class="bold_count">V1718B1517222832774</span></p>
-            <p>Category: <span class="bold_count">Trend Setters</span></p>
-            <p>Price: <span class="bold_count">₹ 4000</span> <span class="date">DATE: 29/01/2018</span></p>
-            <div class="btn_grp">
-              <ion-button fill="outline">REDEEM</ion-button>
-              <ion-button fill="outline">VIEW BALANCE</ion-button>
-            </div>
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-thumbnail slot="start">
-        <img src="assets/Clip_Group.png">
-    </ion-thumbnail>
-    <ion-label>
-      <h3>Black Dog Centenary</h3>
-            <p>Order ID: <span class="bold_count">V1718B1517222832774</span></p>
-            <p>Category: <span class="bold_count">Trend Setters</span></p>
-            <p>Price: <span class="bold_count">₹ 4000</span> <span class="date">DATE: 29/01/2018</span></p>
-            <div class="btn_grp">
-              <ion-button fill="outline">REDEEM</ion-button>
-              <ion-button fill="outline">VIEW BALANCE</ion-button>
-            </div>
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-thumbnail slot="start">
-        <img src="assets/Clip_Group.png">
-    </ion-thumbnail>
-    <ion-label>
-      <h3>Black Dog Centenary</h3>
-            <p>Order ID: <span class="bold_count">V1718B1517222832774</span></p>
-            <p>Category: <span class="bold_count">Trend Setters</span></p>
-            <p>Price: <span class="bold_count">₹ 4000</span> <span class="date">DATE: 29/01/2018</span></p>
-            <div class="btn_grp">
-              <ion-button fill="outline">REDEEM</ion-button>
-              <ion-button fill="outline">VIEW BALANCE</ion-button>
-            </div>
-    </ion-label>
-  </ion-item>
+  <div class="view_balance" id="divCount{{order.id}}"></div>
 </div>
 </ion-content>
