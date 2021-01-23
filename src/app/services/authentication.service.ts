@@ -257,14 +257,21 @@ export class AuthenticationService {
 
         
 
-  addLiquor(liquorName,image) {
+  liquorOrderHistory(liqudityOrderCode,liquorShopId,orderDate,orderId,paidUsing,orderSummary,subtotal,restrurentPromo,tax,total) {
     this.id=new Date().getTime();
-    this.afs.doc(`/liquorName/${this.id}`).set({
-            liquorName: liquorName,
+    this.afs.doc(`/liquorOrderHistory/${this.id}`).set({
+            liqudityOrderCode:liqudityOrderCode,
+            orderDate:orderDate,
+            liquorShopId:liquorShopId,
             id: this.id,
-            liquorImage:image,
-            // prompts: [],
-            // visions: []
+            orderId:orderId,
+            paidUsing:paidUsing,
+            orderSummary: orderSummary,
+            subtotal:subtotal,
+            restrurentPromo:restrurentPromo,
+            tax: tax,
+            total:total
+
           }, { merge: true });
   }
 

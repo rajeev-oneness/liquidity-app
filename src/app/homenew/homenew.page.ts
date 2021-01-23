@@ -26,31 +26,6 @@ all_liquor_shop :any =[];
   ) { }
 
   ngOnInit() {
-  //   this.liquorshopid=localStorage.getItem("liquorshopid");
-  //   console.log(">>>",this.liquorshopid);
-  // 	this.userDetails.getLiquorData(this.liquorshopid).subscribe(
-  //     data => {
-  //         this.all_liquor = data;
-  //         console.log(data)
-  //         this.helper.dismissLoader();
-  //     },
-  //     err => {
-  //         console.log(err);
-  //         this.helper.dismissLoader();
-  //     }
-  // );
-
-  // this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"Rum").subscribe(
-  //   (data) => {
-  //     this.helper.dismissLoader();
-  //     this.all_liquor_categorywise = data;
-  //     console.log('liquor data.................',this.all_liquor_categorywise);
-  //   },
-  //   (err) => {
-  //     console.log(err);
-  //     this.helper.dismissLoader();
-  //   }
-  // );
   let uId = this.authService.getUserId();
   localStorage.setItem("user_id",uId);
   this.userDetails.getAllliquorshops().subscribe(
@@ -68,7 +43,23 @@ all_liquor_shop :any =[];
     localStorage.setItem("liquorshopid",liquorshopid);
   }
   gotoliqudityVault(){
-    this.navCtrl.navigateForward('/vaulthome');
+    // this.navCtrl.navigateForward('/vaulthome');
+    var orderSUmmary:any =[];
+    orderSUmmary.push(
+      {
+      liquorName:'Vodka',
+      liqourPrice:"765",
+      liqourCount:'4'
+    },
+    {
+      liquorName:'Rum',
+      liqourPrice:"330",
+      liqourCount:'6'
+    },
+    )
+    this.authService.liquorOrderHistory('1140','1611040596543','23/01/2020','LI123645789','wallet',orderSUmmary,'4500','200','500','3800');
+        this.navCtrl.navigateForward('/ordersummary');
+
 
   }
 }

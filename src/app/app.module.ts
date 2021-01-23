@@ -16,6 +16,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { HelperProvider } from './services/helper.service';
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
