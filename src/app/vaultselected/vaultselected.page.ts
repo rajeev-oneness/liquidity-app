@@ -15,7 +15,7 @@ export class VaultselectedPage implements OnInit {
   liquorCategory : any = []; // liquor Category
   categoryItems : any = [];
   selectedMainCategory : any = 0;
-
+  // comment
   constructor(
     private userDetails: UserDetailsService,
     private helper: HelperProvider,

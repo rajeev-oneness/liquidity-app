@@ -27,6 +27,9 @@ export class VaulthomePage implements OnInit {
   }
   gotoReserveValut(){
     this._router.navigate(['/vaultselected']);
+  }
 
+  gotoRedeemANDBalance(){
+    this._router.navigate(['/vaultbalance']);
   }
 }

@@ -10,6 +10,11 @@ export class VaultbalancePage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
+  public orderDetails : any = [];
+  public getOrderDetails(){
+    
+  }
 }
