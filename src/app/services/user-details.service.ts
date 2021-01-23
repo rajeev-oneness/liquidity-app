@@ -316,6 +316,12 @@ getLiquorData(id) {
         .collection('/liquorPrice', ref => ref.where('liquorShopId', '==', id))
         .valueChanges();
 }
+
+getLiquorShopById(id) {
+    return this.afs
+        .collection('/liquorshops', ref => ref.where('id', '==', id))
+        .valueChanges();
+}
 fetchDataByCollectionId(collection, shopid,categoryid) {
     return this.afs
         .collection(`/${collection}`, ref =>
@@ -354,6 +360,11 @@ getLiquorMainCategory(){
 
 getLiquorItemsByCatgory(categoryMainId){
     return this.afs.collection('/liquorPrice', ref => ref.where('liquorCategoryId', '==', categoryMainId)
+    ).valueChanges();
+}
+
+getLiquorOrderHistory(user_id){
+    return this.afs.collection('/liquorOrderHistory', ref => ref.where('user_id', '==', user_id)
     ).valueChanges();
 }
 

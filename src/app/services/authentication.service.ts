@@ -257,7 +257,7 @@ export class AuthenticationService {
 
         
 
-  liquorOrderHistory(liqudityOrderCode,liquorShopId,orderDate,orderId,paidUsing,orderSummary,subtotal,restrurentPromo,tax,total) {
+  liquorOrderHistory(user_id,liqudityOrderCode,liquorShopId,orderDate,orderId,paidUsing,orderSummary,subtotal,restrurentPromo,tax,total,shopImg,shopName) {
     this.id=new Date().getTime();
     this.afs.doc(`/liquorOrderHistory/${this.id}`).set({
             liqudityOrderCode:liqudityOrderCode,
@@ -270,7 +270,10 @@ export class AuthenticationService {
             subtotal:subtotal,
             restrurentPromo:restrurentPromo,
             tax: tax,
-            total:total
+            total:total,
+            user_id:user_id,
+            shopImg:shopImg,
+            shopName:shopName
 
           }, { merge: true });
   }
