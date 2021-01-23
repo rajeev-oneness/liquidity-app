@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HelperProvider } from '../services/helper.service';
 import { UserDetailsService } from '../services/user-details.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-vaultbalance',
@@ -34,6 +35,18 @@ export class VaultbalancePage implements OnInit {
         this.helper.dismissLoader();
       },
     )
+  }
+
+  public viewBalance(orderDetails){
+    $('.view_balance').empty();
+    let orderDataTemplate = '<ion-grid><ion-row class="ion-no-padding"><ion-col size="4"><div class="unit"><p>Total Units <span>'+orderDetails.totalUnit+'</span></p></div></ion-col><ion-col size="4"><div class="unit"><p>Units Redeemed <span>'+orderDetails.redeemed+'</span></p></div></ion-col><ion-col size="4"><div class="unit"><p>Remaining Units <span>'+(parseInt(orderDetails.totalUnit) - parseInt(orderDetails.redeemed))+'</span></p></div></ion-col></ion-row></ion-grid>';
+    orderDataTemplate += '<ion-row><ion-col size="4"><p class="content ion-text-left">OUTLET</p></ion-col><ion-col size="4"><p class="content ion-text-center">DATE</p></ion-col><ion-col size="4"><p class="content ion-text-right">UNITS</p></ion-col></ion-row><ion-row><ion-col size="4"><p class="content black ion-text-left">Orko’ss Restaurant</p></ion-col><ion-col size="4"><p class="content black ion-text-center">29/01/2018</p></ion-col><ion-col size="4"><p class="content black ion-text-right">3</p></ion-col></ion-row><ion-row><ion-col size="4"><p class="content black ion-text-left">Orko’ss Restaurant</p></ion-col><ion-col size="4"><p class="content black ion-text-center">29/01/2018</p></ion-col><ion-col size="4"><p class="content black ion-text-right">3</p></ion-col></ion-row>';
+    $('#divCount'+orderDetails.id).empty()
+      .append(orderDataTemplate);
+  }
+
+  public redeem(orderDetails){
+    
   }
 }
 
