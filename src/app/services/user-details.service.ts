@@ -387,6 +387,7 @@ addSelectedItemToCart(itemObject,quantity,userId) {
         liquorShopId : itemObject.liquorShopId,
         liquorName : itemObject.liquorName,
     }, { merge: true });
+}
 
 getVaultOrderHistory(userId){
     return this.afs.collection('/voultOrderHistory', ref => ref.where('userId', '==', userId)
