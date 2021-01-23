@@ -33,11 +33,11 @@ export class VaultRedeemPage implements OnInit {
   }
 
   plusss(){
-    this.itemCount += 1;
+    this.itemCount -= 1;
   }
 
   minusss(){
-    this.itemCount -= 1;
+    this.itemCount += 1;
   }
 
 }
