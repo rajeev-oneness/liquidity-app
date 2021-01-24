@@ -15,6 +15,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { HelperProvider } from './services/helper.service';
+import {DatePipe} from '@angular/common';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { HelperProvider } from './services/helper.service';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    HelperProvider
+    HelperProvider,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

@@ -110,7 +110,11 @@ const routes: Routes = [
   {
     path: 'vault-redeem/:vaultOrderId',
     loadChildren: () => import('./vault-redeem/vault-redeem.module').then( m => m.VaultRedeemPageModule)
+  },  {
+    path: 'vault-order-history',
+    loadChildren: () => import('./vault-order-history/vault-order-history.module').then( m => m.VaultOrderHistoryPageModule)
   }
+
 
 ];
 

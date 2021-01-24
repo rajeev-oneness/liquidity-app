@@ -12,7 +12,7 @@
 		<!-- <h2 class="title">Cart (Orko’ss Restaurant)</h2> -->
 	<!-- </div> -->
 	<div class="drink_items">
-		<ion-item *ngFor="let item of final_cart_items ; let i = index">
+		<ion-item *ngFor="let item of cart_items ; let i = index">
 		    <ion-grid>
 		      	<ion-row class="ion-align-items-center">
 		    		<ion-col size="7">
@@ -147,7 +147,7 @@
 
 <ion-footer class="ion-no-border">
   <div class="footer_content">
-  	<div class="footer_item_end mw_230">
+  	<div class="footer_item_end mw_230" (click)="pay()">
   		<p>Select Payment Method</p>
   		<img src="assets/arrow-right.png">
   	</div>

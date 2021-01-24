@@ -30,7 +30,7 @@
 <div class="slide_item slide_item--mod-2">
   <ion-grid>
       <ion-row>
-        <ion-col size="6" *ngFor="let item of all_liquor_shop" (click)="gotoshopproduct(item.id)">
+        <ion-col size="6" *ngFor="let item of all_liquor_shop" (click)="gotoshopproduct(item.id,item)">
             <div class="slide_box" >
                 <span class="rating">3.4</span>
                 <div class="img_wrap" style="background: url({{item.image}}) no-repeat center; background-size: cover;"></div>

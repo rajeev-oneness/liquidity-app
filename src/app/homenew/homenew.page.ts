@@ -38,31 +38,33 @@ all_liquor_shop :any =[];
               console.log(err);
           });
   }
-  gotoshopproduct(liquorshopid){
+  gotoshopproduct(liquorshopid,item){
     this.navCtrl.navigateForward('/outlethome');
     localStorage.setItem("liquorshopid",liquorshopid);
+    localStorage.setItem('shopDetails', JSON.stringify(item));
+
   }
   gotoliqudityVault(){
     let uId = this.authService.getUserId();
-    // this.navCtrl.navigateForward('/vaulthome');
-    var orderSUmmary:any =[];
-    orderSUmmary.push(
-      {
-      liquorName:'Vodka',
-      liqourPrice:"765",
-      liqourCount:'4',
-      liquorImage:"https://firebasestorage.googleapis.com/v0/b/liquidity-app-6d8cb.appspot.com/o/icon_01.png?alt=media&token=dab65c4d-fb8e-4766-9163-bd7485b0eaab"
-    },
-    {
-      liquorName:'Rum',
-      liqourPrice:"330",
-      liqourCount:'6',
-      liquorImage:"https://firebasestorage.googleapis.com/v0/b/liquidity-app-6d8cb.appspot.com/o/icon_01.png?alt=media&token=dab65c4d-fb8e-4766-9163-bd7485b0eaab"
+    this.navCtrl.navigateForward('/vaulthome');
+    // var orderSUmmary:any =[];
+    // orderSUmmary.push(
+    //   {
+    //   liquorName:'Vodka',
+    //   liqourPrice:"765",
+    //   liqourCount:'4',
+    //   liquorImage:"https://firebasestorage.googleapis.com/v0/b/liquidity-app-6d8cb.appspot.com/o/icon_01.png?alt=media&token=dab65c4d-fb8e-4766-9163-bd7485b0eaab"
+    // },
+    // {
+    //   liquorName:'Rum',
+    //   liqourPrice:"330",
+    //   liqourCount:'6',
+    //   liquorImage:"https://firebasestorage.googleapis.com/v0/b/liquidity-app-6d8cb.appspot.com/o/icon_01.png?alt=media&token=dab65c4d-fb8e-4766-9163-bd7485b0eaab"
 
-    },
-    )
-    // this.authService.liquorOrderHistory(uId,'1140','1611040596543','23/01/2020','LI123645789','wallet',orderSUmmary,'4500','200','500','3800',"https://firebasestorage.googleapis.com/v0/b/liquidity-app-6d8cb.appspot.com/o/Home%20page%20icon_05.png?alt=media&token=ada76441-9bfa-4bc1-893c-160a3bb8a043",
-    // "Fl Shop");
-        this.navCtrl.navigateForward('/liquororderhistroy');
+    // },
+    // )
+    // // this.authService.liquorOrderHistory(uId,'1140','1611040596543','23/01/2020','LI123645789','wallet',orderSUmmary,'4500','200','500','3800',"https://firebasestorage.googleapis.com/v0/b/liquidity-app-6d8cb.appspot.com/o/Home%20page%20icon_05.png?alt=media&token=ada76441-9bfa-4bc1-893c-160a3bb8a043",
+    // // "Fl Shop");
+    //     this.navCtrl.navigateForward('/liquororderhistroy');
   }
 }

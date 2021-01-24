@@ -3,7 +3,7 @@
   	<ion-buttons slot="start">
   		<ion-back-button icon="arrow-back-outline" defaultHref=""></ion-back-button>
   	</ion-buttons>
-    <ion-title>Redeem and Balance</ion-title>
+    <ion-title>Vault Order History</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -22,8 +22,8 @@
             <p>Category: <span class="bold_count">{{order.liquorCategory}}</span></p>
             <p>Price: <span class="bold_count">₹ {{order.price}}</span> <span class="date">DATE: {{order.orderedDate}}</span></p>
             <div class="btn_grp">
-              <ion-button fill="outline" (click)="redeem(order)">REDEEM</ion-button>
-              <ion-button fill="outline" (click)="viewBalance(order)">VIEW BALANCE</ion-button>
+              <!-- <ion-button fill="outline" (click)="redeem(order)">REDEEM</ion-button> -->
+              <ion-button fill="outline" >Cancel Order</ion-button>
             </div>
     </ion-label>
   </ion-item>

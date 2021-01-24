@@ -32,4 +32,7 @@ export class VaulthomePage implements OnInit {
   gotoRedeemANDBalance(){
     this._router.navigate(['/vaultbalance']);
   }
+  gotoVaultOrderHistory(){
+    this._router.navigate(['/vault-order-history']);
+  }
 }

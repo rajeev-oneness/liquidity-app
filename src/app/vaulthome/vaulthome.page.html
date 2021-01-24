@@ -23,10 +23,10 @@
 		<p>Through <b>Liquidity Vault</b>, reserve your favorite brands at a special price and redeem your reserved product  across the outlets in the category of your choice. </p>
 	</div>
 	<div class="form_wrap">
-		<ion-button class="btn-submit" expand="block" shape="round">CATEGORY AND OUTLETS</ion-button>
+		<ion-button class="btn-submit" expand="block" shape="round" (click)="gotoReserveValut()">CATEGORY AND OUTLETS</ion-button>
 		<ion-button class="btn-submit" expand="block" shape="round" (click)="gotoReserveValut()">RESERVE AT VAULT</ion-button>
 		<ion-button class="btn-submit" expand="block" shape="round" (click)="gotoRedeemANDBalance()">REDEEM AND BALANCE</ion-button>
-		<ion-button class="btn-submit" expand="block" shape="round">ORDER HISTORY</ion-button>
+		<ion-button class="btn-submit" expand="block" shape="round" (click)="gotoVaultOrderHistory()">ORDER HISTORY</ion-button>
 		<ion-button class="btn-submit" expand="block" shape="round">FAQ</ion-button>
 	</div>
 </ion-content>

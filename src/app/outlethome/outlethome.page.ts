@@ -238,6 +238,9 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
           
           }
         gotoCart(){
+          localStorage.setItem("totalCartValue",this.final_cart_value);
+          // Put the object into storage
+          localStorage.setItem('cartItem', JSON.stringify(this.addToCart.carts));
           this.navCtrl.navigateForward('/cart');
 
         }
