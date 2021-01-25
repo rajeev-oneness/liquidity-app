@@ -95,7 +95,7 @@ export class VaultRedeemPage implements OnInit {
     console.log('Item Count',this.itemCount);
     console.log('cart price',this.cartPrice);
 
-    this._userDetails.updateVaultLiquorBalance(this.outletDetails,this.itemCount,this.cartPrice,this.bookingData).subscribe(
+    this._userDetails.updateVaultLiquorBalance(this.orderDetails,this.itemCount,this.cartPrice,this.bookingData).subscribe(
       res => {console.log(res)},
       err => {console.log(err)}
     )
