@@ -87,13 +87,19 @@ export class VaultRedeemPage implements OnInit {
       const index: number = this.bookingData.selectedOutlet.indexOf(outletDetails.id);
       this.bookingData.selectedOutlet.splice(index, 1);
     }
-    console.log('updated SelectedOutlet',this.bookingData.selectedOutlet);
+    console.log('updated Selected Outlet',this.bookingData.selectedOutlet);
   }
 
   confirmBooking(){
     console.log('Booking Data' ,this.bookingData);
     console.log('Item Count',this.itemCount);
     console.log('cart price',this.cartPrice);
+
+    this._userDetails.updateVaultLiquorBalance(this.outletDetails,this.itemCount,this.cartPrice,this.bookingData).subscribe(
+      res => {console.log(res)},
+      err => {console.log(err)}
+    )
+
   }
 
 }

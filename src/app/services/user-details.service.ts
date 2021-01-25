@@ -399,4 +399,8 @@ getVaultOrderDetailsById(orderId,userId){
     ).valueChanges();
 }
 
+updateVaultLiquorBalance(outletDetails,itemCount,cartPrice,bookingData){
+    return this.afs.collection('/voultOrderHistory').valueChanges();
+}
+
 }
