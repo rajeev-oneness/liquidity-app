@@ -25,22 +25,92 @@
   <div class="row">
     <ion-list class="drink_items">
       <ion-item>
+        <p>{{orderDetails.liquorName}}</p>
+      </ion-item>
+      <ion-item>
+        <p>OrderId : {{orderDetails.id}}</p>
+      </ion-item>
+      <ion-item>
         <ion-grid>
           <ion-row class="ion-align-items-center">
+            <p>Select the number of Units you wish to redeem</p>
           <ion-col size="4">
             <div class="quantity">
               <div (click)="plusss()"><span class="plus">+</span></div>
               <p>{{itemCount}}</p>
-              <div (click)="minusss()"><span class="minus" >-</span></div>
+              <div (click)="minusss()"><span class="minus">-</span></div>
             </div>
           </ion-col>
         </ion-row>
         </ion-grid>
       </ion-item>
-
     </ion-list>
-
   </div>
 </ion-content>
+
+<ion-content>
+  <div class="title_bar">
+    <h2 class="title">Select the outlet to redeem</h2>
+  </div>
+  <div class="row">
+    <ion-list class="drink_items">
+      <ion-item>
+        <ion-grid *ngFor="let outlet of Outlets">
+          <ion-row class="ion-align-items-center">
+            <img src="{{outlet.image}}">
+            <input type="checkbox" value="{{outlet.id}}" (change)="selectedOutlet($event,outlet)">
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-content>
+  <div class="title_bar">
+    <h2 class="title">Booking For</h2>
+  </div>
+  <div class="row">
+    <ion-list class="drink_items">
+      <ion-item>
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <input type="radio" name="bookingfor" value="myself" [(ngModel)]="bookingData.bookingfor">Myself
+            <input type="radio" name="bookingfor" value="someoneelse" [(ngModel)]="bookingData.bookingfor">Someone else
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item>
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-input type="text" placeholder="+91 " #mobile="ngModel" [(ngModel)]="bookingData.mobile" name="mobile"></ion-input>
+            <ion-input placeholder="youremail@email.com" type="email" #email="ngModel" [(ngModel)]="bookingData.email" name="email"></ion-input>
+          </ion-row>
+          <ion-row>
+            <ion-input type="text" placeholder="date" #date="ngModel" [(ngModel)]="bookingData.date" name="text"></ion-input>
+            <ion-input placeholder="time" type="text" #time="ngModel" [(ngModel)]="bookingData.time" name="text"></ion-input>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <div class="footer_content">
+    <div class="footer_item_start">
+      <img src="assets/cart.png">
+      <div class="item_total">
+        <p><small>{{itemCount}} ITEM IN CART</small></p>
+        <p class="price_end">₹ {{cartPrice}}.00</p>
+        <p><small>30ml per unit</small></p>
+      </div>
+    </div>
+    <div class="footer_item_end mw_230" (click)="confirmBooking()">
+      <p>Confirm Booking</p>
+      <img src="assets/arrow-right.png">
+    </div>
+  </div>
+</ion-footer>
 
 <!-- http://localhost:8100/vault-redeem/1611398447292 -->
