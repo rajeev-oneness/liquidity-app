@@ -1,0 +1,32 @@
+
+ion-content {
+	--background: url(../../assets/BG.png) no-repeat center center / cover;
+
+	.slide {
+	    padding: 0 25px 50px;
+
+		img {
+			display: block;
+			margin: 98px auto 50px;
+			width: auto;
+			height: 250px;
+		}
+
+		h2 {
+			color: #dcc88d;
+			font-size: 19px;
+			text-transform: uppercase;
+			font-family: "Nexa Black" !important;
+		}
+		p {
+			color: #ffffff;
+			font-size: 11px;
+			font-family: "Nexa-Book" !important;
+		    margin: 21px 0 20px;
+		}
+	}
+	.swiper-pagination-bullets {
+	    bottom: 109px !important;
+	    --bullet-background: #fff;
+	}
+}

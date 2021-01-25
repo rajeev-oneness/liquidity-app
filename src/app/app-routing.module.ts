@@ -117,6 +117,10 @@ const routes: Routes = [
   {
     path: 'order-success',
     loadChildren: () => import('./order-success/order-success.module').then( m => m.OrderSuccessPageModule)
+  },
+  {
+    path: 'slide',
+    loadChildren: () => import('./slide/slide.module').then( m => m.SlidePageModule)
   }
 
 

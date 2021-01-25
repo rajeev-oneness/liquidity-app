@@ -138,8 +138,7 @@ export class AppComponent {
         } else {
           console.log("dismissLoader")
             this.helper.dismissLoader();
-            // this.navCtrl.navigateRoot('home');
-            this.router.navigate(['/login']);
+            this.router.navigate(['/slide']);
         }
     });
 });
