@@ -62,9 +62,7 @@ export class UserDetailsService {
             });
     }
 
-    getUser() {
-        return this.afs.collection('/userProfile').valueChanges();
-    }
+
 
     getLiquorShops() {
         return this.afs.collection('/liquorshops').valueChanges();
@@ -88,10 +86,11 @@ export class UserDetailsService {
             .valueChanges();
     }
 
-    // getPrompts() {
-    //         return this.afs.collection('/Prompts',ref => ref.where('id', '==', '2'))
-    //         .valueChanges();
-    //     }
+    // getUserbyId(user_id) {
+    //     return this.afs.collection('/userProfile'), ref =>
+    //     ref.where('id', '==', user_id)
+    // .valueChanges();
+    // }
 
     promptsAnswer(collection, userId, promptArr) {
         return this.afs
@@ -102,7 +101,8 @@ export class UserDetailsService {
             });
     }
 
-    fetchPromptAnswerItem(collection, user_id) {
+    getUserbyId(collection, user_id) {
+        console.log("user_id?????",user_id)
         return this.afs
             .collection(`/${collection}`, ref =>
                 ref.where('id', '==', user_id)

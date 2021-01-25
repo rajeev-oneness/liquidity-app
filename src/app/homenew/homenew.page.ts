@@ -14,6 +14,7 @@ all_liquor :any =[];
 all_liquor_categorywise :any =[];
 liquorshopid='';
 all_liquor_shop :any =[];
+user_data :any =[];
 
   constructor(
         private authService: AuthenticationService,
@@ -27,6 +28,8 @@ all_liquor_shop :any =[];
 
   ngOnInit() {
   let uId = this.authService.getUserId();
+  this.authService.addUser(uId,localStorage.getItem("name"), localStorage.getItem("email"),localStorage.getItem("mobile"),"","","","https://firebasestorage.googleapis.com/v0/b/liquidity-app-6d8cb.appspot.com/o/80-805068_my-profile-icon-blank-profile-picture-circle-clipart.png?alt=media&token=8f9cd01c-96ba-433b-b99f-67f5c1e13991"); 
+
   localStorage.setItem("user_id",uId);
   this.userDetails.getAllliquorshops().subscribe(
           (data) => {
@@ -37,6 +40,19 @@ all_liquor_shop :any =[];
           (err) => {
               console.log(err);
           });
+  this.userDetails.getUserbyId("userProfile",uId).subscribe(
+            (data) => {
+                this.user_data = data;
+                console.log()
+                localStorage.setItem("user_name",this.user_data.name);
+                localStorage.setItem("user_email",this.user_data.mail);
+                localStorage.setItem("user_mobile",this.user_data.mobile);
+                this.helper.dismissLoader();
+                localStorage
+            },
+            (err) => {
+                console.log(err);
+            });
   }
   gotoshopproduct(liquorshopid,item){
     this.navCtrl.navigateForward('/outlethome');

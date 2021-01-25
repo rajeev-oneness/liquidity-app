@@ -111,8 +111,9 @@ this.menuCtrl.enable(false);
 	                  if (res.status === 1) {
 	                      // this.loginForm.controls.email.patchValue('');
 	                      // this.loginForm.controls.password.patchValue('');
-	                      console.log("home>>> Login")
-	                      this.navCtrl.navigateForward('/homenew');
+                        console.log("home>>> Login")
+                        window.location.href='/homenew';
+	                     // this.navCtrl.navigateForward('/homenew');
 	                  }
 	              })
 	              .catch(err => {

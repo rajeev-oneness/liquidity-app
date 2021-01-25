@@ -3,19 +3,19 @@
     <ion-buttons slot="start">
       <ion-back-button icon="arrow-back-outline" defaultHref=""></ion-back-button>
     </ion-buttons>
-    <ion-title>myprofile</ion-title>
+    <ion-title>My Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="user">
   <div class="menu__header">
     <div class="user__image">
       <img src="assets/user.jpg" />
     </div>
-    <h6>Divya Parantap</h6>
-    <p>hi@ionicframework.com</p>
+    <h6>{{user_name}}</h6>
+    <p>{{user_mail}}</p>
     <p>+91 9789569349</p>
-    <a href="#" class="menu__button">Wallet Balance: &#8377; 10000</a>
+    <a  class="menu__button">Wallet Balance: &#8377; 10000</a>
   </div>
 
   <div class="order-summary">

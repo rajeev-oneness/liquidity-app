@@ -20,6 +20,11 @@ import { Location } from '@angular/common';
 })
 export class AppComponent {
   public selectedIndex = 0;
+  user_name :any =[];
+  user_mail :any =[];
+  user_mobile :any =[];
+  user :any =[];
+
   public appPages = [
     {
       title: 'Home',
@@ -73,7 +78,7 @@ export class AppComponent {
     },
     {
       title: 'General Terms & Conditions',
-      url: '//homenew',
+      url: '/homenew',
       icon: 'archive'
     },
     {
@@ -87,7 +92,6 @@ export class AppComponent {
       icon: 'warning'
     }
   ];
-  // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
   constructor(
     private platform: Platform,
@@ -111,25 +115,20 @@ export class AppComponent {
       const userAuthSubs = this.auth.currentAuthState.subscribe(auth => {
         console.log('App Component authState : ', auth);
         userAuthSubs.unsubscribe();
-
         console.log('isAuthenticated : ', this.auth.isAuthenticated());
-
-
-
         if (this.auth.isAuthenticated()) {
             this.helper.dismissLoader();
-            //   this.navCtrl.navigateRoot('/members/home');
             this.auth.getUserById(this.auth.getUserId()).pipe(take(1)).subscribe(
                 (user: any) => {
                     
-                    console.log('user', user);
-                     
+                    console.log('user>>>>', user);
+                    this.user=user;
+                    this.user_mail=this.user.mail;
+                    this.user_name=this.user.name;
+                    this.user_mobile=this.user.mobile;
+                    localStorage.setItem('user_Detais', JSON.stringify(this.user));
                     this.helper.dismissLoader();
-
                     this.navCtrl.navigateRoot('/homenew');
-                    // this.navCtrl.navigateForward('/vaultselected');
-
-                    // this.navCtrl.navigateRoot('/prompt-listing');
                 },
                 err => {
                     this.helper.dismissLoader();

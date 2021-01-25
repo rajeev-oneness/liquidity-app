@@ -62,7 +62,7 @@ export class AuthenticationService {
           loading.dismiss();
           this.authState = res.user;
           this.id=new Date().getTime();
-          this.afs.doc(`/userProfile/${this.id}`).set({
+          this.afs.doc(`/userProfile/${this.authState.uid}`).set({
             email: body.email,
             id: this.authState.uid,
             createdAt: +new Date(),
@@ -186,16 +186,16 @@ export class AuthenticationService {
   // }
 
 
-  addUser(name,mail,mobile,dob,gender,address,image) {
-    this.id=new Date().getTime();
-    this.afs.doc(`/userProfile/${this.id}`).set({
+  addUser(user_id,name,mail,mobile,dob,gender,address,image) {
+    // this.id=new Date().getTime();
+    this.afs.doc(`/userProfile/${user_id}`).set({
             name: name,
             mail: mail,
             mobile: mobile,
             dob:dob,
             gender:gender,
             address:address,
-            id: this.id,
+            id: user_id,
             image:image
             // prompts: [],
             // visions: []

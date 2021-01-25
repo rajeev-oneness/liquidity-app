@@ -42,7 +42,7 @@ export class LiquororderhistroyPage implements OnInit {
 
       orderDetails(item){
         localStorage.setItem('orderDetais', JSON.stringify(item));
-        var retrievedObject = localStorage.getItem('orderDetais');
+        var retrievedObject = JSON.parse(localStorage.getItem('orderDetais'));
         console.log('retrievedObject: ', JSON.parse(retrievedObject));
         this.navCtrl.navigateForward('/liquororderhistroy-details');
 

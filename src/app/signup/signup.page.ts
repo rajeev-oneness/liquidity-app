@@ -66,12 +66,14 @@ password='';
                       this.helper.showError(res.error.code);
                   }
                   if (res.status === 1) {
-                    this.authService.addUser(this.name, this.mail,this.mobile,"","","","https://firebasestorage.googleapis.com/v0/b/liquidity-app-6d8cb.appspot.com/o/80-805068_my-profile-icon-blank-profile-picture-circle-clipart.png?alt=media&token=8f9cd01c-96ba-433b-b99f-67f5c1e13991"); 
+                    localStorage.setItem("name",this.name);
+                    localStorage.setItem("email",this.mail);
+                    localStorage.setItem("mobile",this.mobile);
                       this.helper.presentToast("Sucessfully Signup");
                       // this.authService.addUser(this.name,this.mail,this.mobile,this.dob,this.gender,this.address,this.image); 
-                      this.mail='';
-                      this.name='';
-                      this.mobile='';
+                      // this.mail='';
+                      // this.name='';
+                      // this.mobile='';
                       this.navCtrl.navigateForward('/login');
                   }
               })
