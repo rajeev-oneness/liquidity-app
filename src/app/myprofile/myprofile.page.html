@@ -1,9 +1,33 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button icon="arrow-back-outline" defaultHref=""></ion-back-button>
+    </ion-buttons>
     <ion-title>myprofile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="menu__header">
+    <div class="user__image">
+      <img src="assets/user.jpg" />
+    </div>
+    <h6>Divya Parantap</h6>
+    <p>hi@ionicframework.com</p>
+    <p>+91 9789569349</p>
+    <a href="#" class="menu__button">Wallet Balance: &#8377; 10000</a>
+  </div>
 
+  <div class="order-summary">
+    <a class="edit_button" href=""><ion-icon name="pencil-sharp"></ion-icon> Edit</a>
+    <h6>Divya Parantap</h6>
+    <p><span>hi@ionicframework.com</span></p>
+    <p><span>+91 9789569349</span></p>
+  </div>
+  <div class="order-summary">
+    <a class="edit_button" href=""><ion-icon name="pencil-sharp"></ion-icon> Edit</a>
+    <p><span>Date of Birth:</span> 13/11/2019</p>
+    <p><span>Gender:</span> Male</p>
+    <p><span>Address:</span> 2/28 Samajghar, Golf Green<br/>Kolkata - 700121 </p>
+  </div>
 </ion-content>

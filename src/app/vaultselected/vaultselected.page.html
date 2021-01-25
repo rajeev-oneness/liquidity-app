@@ -40,16 +40,19 @@
             <div class="unit_category">
               <ul>
                 <li>
-                  0<span>units</span>
-                  <ion-radio value="0" name="name{{categoryItem.id}}" (click)="radioButtonSelect(categoryItem,0)"></ion-radio>
+                  <input type="radio" value="0" id="name0{{categoryItem.id}}" name="name{{categoryItem.id}}" (click)="radioButtonSelect(categoryItem,0)" />
+                  <label for="name0{{categoryItem.id}}">0<span>units</span></label>
+                  <!-- <ion-radio ></ion-radio> -->
                 </li>
                 <li>
-                  25 <span>units</span>
-                  <ion-radio value="25" name="name{{categoryItem.id}}" (click)="radioButtonSelect(categoryItem,25)"></ion-radio>
+                  <input type="radio" value="25" id="name25{{categoryItem.id}}" name="name{{categoryItem.id}}" (click)="radioButtonSelect(categoryItem,25)" />
+                  <label for="name25{{categoryItem.id}}">25 <span>units</span></label>
+                  <!-- <ion-radio value="25" name="name{{categoryItem.id}}" (click)="radioButtonSelect(categoryItem,25)"></ion-radio> -->
                 </li>
                 <li>
-                  50 <span>units</span>
-                  <ion-radio value="50" name="name{{categoryItem.id}}" (click)="radioButtonSelect(categoryItem,50)"></ion-radio>
+                  <input type="radio" value="50" id="name50{{categoryItem.id}}" name="name{{categoryItem.id}}" (click)="radioButtonSelect(categoryItem,50)" />
+                  <label for="name50{{categoryItem.id}}">50 <span>units</span></label>
+                  <!-- <ion-radio value="50" name="name{{categoryItem.id}}" (click)="radioButtonSelect(categoryItem,50)"></ion-radio> -->
                 </li>
               </ul>
               <ion-select cancelText="cancel" okText="ok" #selectCatgory ngModel>

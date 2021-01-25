@@ -113,6 +113,10 @@ const routes: Routes = [
   },  {
     path: 'vault-order-history',
     loadChildren: () => import('./vault-order-history/vault-order-history.module').then( m => m.VaultOrderHistoryPageModule)
+  },
+  {
+    path: 'order-success',
+    loadChildren: () => import('./order-success/order-success.module').then( m => m.OrderSuccessPageModule)
   }
 
 

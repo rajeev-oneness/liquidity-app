@@ -117,3 +117,60 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+.menu__header {
+  background-color: #000;
+  padding: 20px;
+  box-sizing: border-box;
+  color: #ffffff;
+  text-align: center;
+
+  h6 {
+    font-size: 12px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  p {
+    margin: 0 0 6px;
+  }
+
+  .menu__button {
+    display: inline-block;
+    padding: 0 10px;
+    vertical-align: middle;
+    margin: 0 5px;
+    background-color: #dcc88d;
+    color: #000;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 10px;
+    line-height: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .user__image {
+    display: block;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    position: relative;
+
+    &:before {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      border: 1px solid #dcc88d;
+      position: absolute;
+      pointer-events: none;
+      content: '';
+      top: -4px;
+      left: -4px;
+    }
+    img {
+      border-radius: 50%;
+      max-width: 100%;
+    }
+  }
+}

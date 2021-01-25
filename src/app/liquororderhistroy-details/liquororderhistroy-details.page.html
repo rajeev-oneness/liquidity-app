@@ -7,29 +7,89 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="all_order">
-  <div class="bottom_button">
-    <p>shop name</p>
-    <p>{{all_order.shopName}}</p>
-    <p>shop img url</p>
-    <p>{{all_order.shopImg}}</p>
-    <p>Order id</p>
-    <p>{{all_order.orderId}}</p>
-    <p>paid Using</p>
-    <p>{{all_order.paidUsing}}</p>
-    <p>liqudity Order Code</p>
-    <p>{{all_order.liqudityOrderCode}}</p>
-    <div *ngFor="let item of all_liquor_order_summary">
-    <h4 >Order Summery</h4>
-    <p>liquor name</p>
-    <p>{{item.liquorName}}</p>
-    <p>{{item.counter}}x{{item.BigLiquorNormalPrice}}</p>
+<ion-content>
+  <ion-item *ngIf="all_order">
+    <ion-avatar slot="start">
+      <img src="{{all_order.shopImg}}" />
+    </ion-avatar>
+    <ion-label *ngIf="all_order">
+      <h5>{{all_order.shopName}}</h5>
+      E Block, 306, 307, Level 3, Kolkata, Welt Bengal-700121
+    </ion-label>
+  </ion-item>
+
+  <div class="title_bar">
+		<h2 class="title">Order Details</h2>
   </div>
-  <p>Subtotal</p>
-    <p>{{all_order.subtotal}}</p>
-    <p>Restrurent Charge</p>
-    <p>{{all_order.restrurentPromo}}</p>
-    <p>Total</p>
-    <p>{{all_order.total}}</p>
+  
+  <div class="order-summary" *ngIf="all_order">
+    <p><span>Order ID:</span> {{all_order.orderId}}</p>
+    <p><span>Transation Reference:</span> {{all_order.paidUsing}}</p>
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-col size="6"><p><span>Date:</span> {{all_order.orderDate}}</p></ion-col>
+        <!-- <ion-col size="6"><p><span>Time:</span> 02:24 PM</p></ion-col> -->
+      </ion-row>
+      <ion-row>
+        <ion-col size="6"><p><span>Scheduled Date:</span> {{all_order.orderDate}}</p></ion-col>
+        <!-- <ion-col size="6"><p><span>Time:</span> 02:24 PM</p></ion-col> -->
+      </ion-row>
+    </ion-grid>
+    <hr/>
+    <p><span>Paid Using:</span> {{all_order.liqudityOrderCode}}</p>
+    <hr/>
+    <p><span>liquidity order code</span> {{all_order.liqudityOrderCode}}</p>
   </div>
+
+  <div class="title_bar">
+		<h2 class="title">Order Summary</h2>
+  </div>
+  
+  <div class="order-summary" >
+    <ion-grid no-padding>
+      <ion-row *ngFor="let item of all_liquor_order_summary">
+        <ion-col size="8">
+          <h6>{{item.liquorName}}</h6>
+          <p><span>{{item.counter}} <ion-icon name="close-sharp"></ion-icon> ₹ {{item.BigLiquorNormalPrice}}</span></p>
+        </ion-col>
+        <ion-col size="4" class="ion-text-right">
+          <h6>&nbsp;</h6>
+          <p><span>₹ {{item.total}}</span></p>
+        </ion-col>
+      </ion-row>
+      <hr/>
+      <ion-row>
+        <ion-col size="8">
+          <h6>Subtotal</h6>
+          <h6>Restaurant Promo</h6>
+          <p><span>Taxes and charges</span></p>
+        </ion-col>
+        <ion-col size="4" class="ion-text-right">
+          <h6>₹ {{all_order.total}}</h6>
+          <h6>- ₹ {{all_order.restrurentPromo}}</h6>
+          <p><span>₹ {{all_order.tax}}</span></p>
+        </ion-col>
+      </ion-row>
+      <hr/>
+      <ion-row>
+        <ion-col size="8">
+          <h6>Total</h6>
+        </ion-col>
+        <ion-col size="4" class="ion-text-right">
+          <h6>₹ {{all_order.total}}</h6>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="title_bar">
+		<h2 class="title">Contact Outlet</h2>
+  </div>
+  
+  <div class="order-summary">
+    <p><ion-icon name="call-sharp"></ion-icon> +91 8978975465</p>
+    <hr/>
+    <p><ion-icon name="call-sharp"></ion-icon> +91 8978975465</p>
+  </div>
+
 </ion-content>

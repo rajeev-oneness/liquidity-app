@@ -62,6 +62,20 @@
 .black {
 	color: #111111 !important;
 }
+ion-content {
+	--background: #fff;
+
+	ion-fab-button {
+		border: none;
+		--background: transparent;
+		--box-shadow: none;
+	}
+
+	ion-segment-button {
+		--indicator-color: #dcc88d;
+	}
+}
+
 .form_wrap {
 	font-family: "Nexa-Thin" !important;
     max-width: 320px;
@@ -262,10 +276,57 @@ ion-header {
 				}
 			}
 		}
+		ion-select {
+			position: relative;
+			--padding-start: 0;
+		}
 		.search_item {
 			width: 17px;
-		    height: 17px;
-		    padding-right: 16px;
+			height: 17px;
+			color: #000000;
+		}
+	}
+	ion-menu-button {
+		--color: #000000;
+	}
+	ion-back-button {
+		--color: #000000;
+	}
+	ion-botton {
+		--background: #000000;
+		
+		ion-icon {
+			--color: #000000;
+		}
+	}
+}
+
+ion-menu {
+	ion-content {
+		--background: #ffffff !important;
+		--padding-start: 0 !important;
+		--padding-end: 0 !important;
+		--padding-top: 0 !important;
+		--padding-bottom: 0 !important;
+
+		.list-md {
+			background: #ffffff !important;
+
+			ion-item {
+				--background: #ffffff;
+				border-radius: 0 !important;
+				--color: #000000;
+				font-size: 14px;
+
+				&.selected {
+					--background: #dcc88d !important;
+					--color: #000000;
+
+					ion-icon {
+						color: #000000 !important;
+					}
+				}
+			}
 		}
 	}
 }
@@ -375,7 +436,7 @@ ion-footer {
 		    justify-content: flex-start;
 	        min-height: 60px;
 		    width: 100%;
-		    padding: 0 20px;
+		    padding: 0 10px;
 
 			img {
 				margin-right: 6px;
@@ -773,15 +834,29 @@ ion-segment {
 					li {
 					    display: inline-block;
 					    width: calc(100% / 3);
-					    color: #808080;
-					    font-size: 13px;
-					    line-height: 13px;
-					    letter-spacing: -0.01px;
-					    text-align: center;
-					    background-color: #e5e5e5;
-					    padding: 3px;
-					    font-family: "Nexa Bold" !important;
-				        border-right: 1px solid #8c8c8c;
+						
+						label {
+							color: #808080;
+							font-size: 13px;
+							line-height: 13px;
+							letter-spacing: -0.01px;
+							text-align: center;
+							background-color: #e5e5e5;
+							padding: 3px;
+							font-family: "Nexa Bold" !important;
+							border-right: 1px solid #8c8c8c;
+							display: block;
+						}
+
+						input[type="radio"] {
+							position: absolute;
+							opacity: 0;
+
+							&:checked + label {
+								background-color: #111111;
+				        		color: #dcc88d;
+							}
+						}
 
 				        &:last-child {
 				        	border-right: 0;

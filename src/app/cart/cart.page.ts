@@ -49,6 +49,8 @@ export class CartPage implements OnInit {
     let uId = this.authService.getUserId();
     this.authService.liquorOrderHistory(uId,'1140',this.shopDetails.id,this.today_date,'LI123645789','wallet',this.cart_items,'0','0','0',this.final_cart_price,this.shopDetails.image,
     this.shopDetails.liquorShopName);
+    this.navCtrl.navigateForward('/order-success');
+
   }
 
   }

@@ -1,0 +1,38 @@
+<ion-content>
+  <img class="success_icon" src="assets/success-icon.svg" />
+  <h2>Hurrah!</h2>
+  <h6>Your Order has been Successfully Placed</h6>
+
+  <hr/>
+
+  <h4>Order For</h4>
+  <p><span>Name:</span> John Doe</p>
+  <p><span>Phone:</span> +91 98076 12345</p>
+  
+  <h4>Order Details</h4>
+  <p><span>Order ID:</span> V121980761212345</p>
+  <p><span>Transation Reference:</span> Wallet</p>
+
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col size="6"><p><span>Date:</span> 29/01/21</p></ion-col>
+      <ion-col size="6"><p><span>Time:</span> 02:24 PM</p></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6"><p><span>Scheduled Date:</span> 29/01/21</p></ion-col>
+      <ion-col size="6"><p><span>Time:</span> 02:24 PM</p></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <p><span>Total Amount:</span> ₹ 890</p>
+  <p><span>Tax and Charges:</span> ₹ 45.50</p>
+  <p><span>Total and Paid:</span> ₹ 935.50</p>
+
+  <h6 class="grey">Please note your liquidity order code</h6>
+  <div class="code_area">
+    liquidity order code
+    <span>1136</span>
+  </div>
+  <p class="ion-text-center"><span>Total Reservation for</span> 2</p>
+  <p class="ion-text-center"><a  class="place_order_button" (click)="gotoHome()">Place a new order</a></p>
+</ion-content>

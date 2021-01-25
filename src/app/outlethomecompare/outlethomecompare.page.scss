@@ -1,0 +1,100 @@
+ion-content {
+    --background: #ebeff2;
+
+    .outlet_details {
+        display: block;
+        padding: 20px 25px 10px;
+        background-color: #ffffff;
+        text-align: center;
+        margin-bottom: 30px;
+        
+        p {
+            font-size: 10px;
+            color: #828282;
+            font-weight: 600;
+            margin: 0;
+
+            &.large {
+                font-size: 12px;
+            }
+        }
+
+        span {
+            display: block;
+            border-radius: 50%;
+            background-color: #5ba728;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            line-height: 40px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: -40px;
+            position: relative;
+            z-index: 99;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #33373a;
+            font-weight: bold;
+            margin: 10px 0 5px;
+        }
+        hr {
+            background-color: #b2b2b2;
+            margin: 15px 0 5px;
+        }
+
+        a {
+            display: block;
+            width: 100%;
+            background-color: #dcc88d;
+            color: #000000;
+            border-radius: 4px;
+            font-size: 11px;
+            text-align: center;
+            line-height: 40px;
+            height: 40px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .off_text {
+            display: block;
+            background-color: #dcc88d;
+            color: #000000;
+            border-radius: 4px;
+            font-size: 13px;
+            text-align: center;
+            line-height: 30px;
+            height: 30px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            width: 80px;
+            margin: 0 auto 10px;
+            margin-top: -36px;
+        }
+        h6 {
+            font-size: 13px;
+            font-weight: bold;
+            color: #5ba728;
+            margin: 5px 0 0;
+        }
+    }
+}
+ion-footer {
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #dcc88d;
+        color: #000000;       
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: bolder;
+        padding: 20px 0;
+    }
+}

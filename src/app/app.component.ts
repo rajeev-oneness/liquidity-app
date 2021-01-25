@@ -22,37 +22,72 @@ export class AppComponent {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Inbox',
-      url: '/login',
+      title: 'Home',
+      url: '/homenew',
       icon: 'mail'
     },
     {
-      title: 'Outbox',
-      url: '/folder/Outbox',
+      title: 'Liquidity Vault',
+      url: '/vaulthome',
       icon: 'paper-plane'
     },
     {
-      title: 'Favorites',
-      url: '/folder/Favorites',
+      title: 'My Profile',
+      url: '/myprofile',
       icon: 'heart'
     },
     {
-      title: 'Archived',
-      url: '/folder/Archived',
+      title: 'Order History',
+      url: '/liquororderhistroy',
       icon: 'archive'
     },
     {
-      title: 'Trash',
-      url: '/folder/Trash',
+      title: 'My Wallet',
+      url: '/homenew',
       icon: 'trash'
     },
     {
-      title: 'Spam',
-      url: '/folder/Spam',
+      title: 'Notification',
+      url: '/homenew',
+      icon: 'warning'
+    },
+    {
+      title: 'Events',
+      url: '//homenew',
+      icon: 'archive'
+    },
+    {
+      title: 'Help',
+      url: '/homenew',
+      icon: 'trash'
+    },
+    {
+      title: 'Privacy Policy',
+      url: '/homenew',
+      icon: 'warning'
+    },
+    {
+      title: 'Terms of Use',
+      url: '/homenew',
+      icon: 'warning'
+    },
+    {
+      title: 'General Terms & Conditions',
+      url: '//homenew',
+      icon: 'archive'
+    },
+    {
+      title: 'Faq',
+      url: '/homenew',
+      icon: 'trash'
+    },
+    {
+      title: 'Logout',
+      url: '',
       icon: 'warning'
     }
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
   constructor(
     private platform: Platform,
@@ -64,7 +99,7 @@ export class AppComponent {
         public router: Router,
         private helper: HelperProvider,
   ) {
-    // this.initializeApp();
+    this.initializeApp();
   }
 
   initializeApp() {

@@ -49,7 +49,7 @@ export class VaultcomparePage implements OnInit {
     this.addToCart.carts.forEach((value) => {
       this.saveOrderAPI(value);
     });
-    this._router.navigate(['/vaulthome']);
+    this._router.navigate(['/order-success']);
   }
 
   saveOrderAPI(value){
