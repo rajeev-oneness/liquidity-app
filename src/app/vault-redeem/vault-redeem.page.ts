@@ -13,7 +13,6 @@ export class VaultRedeemPage implements OnInit {
 
   constructor(
     private _userDetails:UserDetailsService,
-    private _authService:AuthenticationService,
     private _router :  Router,
     private _activatedRoute:ActivatedRoute,
     private helper : HelperProvider,
@@ -88,15 +87,18 @@ export class VaultRedeemPage implements OnInit {
   }
 
   confirmBooking(){
-    console.log('button Clicked');
-    this._userDetails.getVaultOrderDetailsById(this.orderDetails.id,this.userId).subscribe(
-      res => {
-        // updating the Data
-        this._userDetails.updateVaultLiquorBalance(res[0],this.itemCount,this.cartPrice,this.bookingData);
-        console.log('response' ,res);
-      },
-      err => {}
-    )
+    if(this.itemCount <= 0){
+      this.helper.showErrorCustom('Please select at least one Unit');
+    }else if(this.bookingData.mobile == '' || this.bookingData.email == '' || this.bookingData.date == '' || this.bookingData.time == ''){
+      this.helper.showErrorCustom('Please fill your details');
+    }else if(this.bookingData.selectedOutlet.length <= 0 && this.Outlets.length > 0){
+      this.helper.showErrorCustom('Please select the Outlet');
+    }else{
+      let totalRedeemed = parseInt(this.orderDetails.redeemed) + this.itemCount;
+      this._userDetails.updateVaultLiquorBalance(this.orderDetails,totalRedeemed,this.cartPrice,this.bookingData);
+      this.helper.showErrorCustom('Redeemption Success Total available Unit is: '+(parseInt(this.orderDetails.totalUnit) - totalRedeemed));
+      this._router.navigate(['/homenew']);
+    }
   }
 
 }

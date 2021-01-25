@@ -398,13 +398,10 @@ getVaultOrderDetailsById(orderId,userId){
     ).valueChanges();
 }
 
-updateVaultLiquorBalance(orderDetails,itemCount,cartPrice=0,bookingData={}){
-    let remainingRedeemed = parseInt(orderDetails.redeemed) + itemCount;
-    if(orderDetails.totalUnit >= remainingRedeemed){
-        return this.afs.collection('/voultOrderHistory').doc(orderDetails.id.toString()).update({
-            redeemed : remainingRedeemed,
-        });
-    }
+updateVaultLiquorBalance(orderDetails,totalRedeemed,cartPrice,bookingData){
+    return this.afs.collection('/voultOrderHistory').doc(orderDetails.id.toString()).update({
+        redeemed : totalRedeemed,
+    });
 }
 
 }
