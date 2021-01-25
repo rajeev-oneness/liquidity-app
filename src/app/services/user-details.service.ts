@@ -350,7 +350,6 @@ UpdateCartData(collection, itemid,final_cart,total_value) {
         .update({
             cart_items:final_cart,
             totalCost:total_value
-
         });
 }
 getLiquorMainCategory(){
@@ -399,8 +398,13 @@ getVaultOrderDetailsById(orderId,userId){
     ).valueChanges();
 }
 
-updateVaultLiquorBalance(outletDetails,itemCount,cartPrice,bookingData){
-    return this.afs.collection('/voultOrderHistory').valueChanges();
+updateVaultLiquorBalance(orderDetails,itemCount,cartPrice=0,bookingData={}){
+    let remainingRedeemed = parseInt(orderDetails.redeemed) + itemCount;
+    if(orderDetails.totalUnit >= remainingRedeemed){
+        return this.afs.collection('/voultOrderHistory').doc(orderDetails.id.toString()).update({
+            redeemed : remainingRedeemed,
+        });
+    }
 }
 
 }

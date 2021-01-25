@@ -37,7 +37,6 @@ export class VaultRedeemPage implements OnInit {
         if(this.orderDetails){
           this.getOutletDetails();
         }
-        console.log(this.orderDetails);
       },
       err => {console.log(err)},
     )
@@ -47,7 +46,6 @@ export class VaultRedeemPage implements OnInit {
     this._userDetails.getLiquorShops().subscribe(
       res => {
         this.Outlets = res;
-        console.log('Oulet',this.Outlets);
         this.helper.dismissLoader();
       },
       err => {this.helper.dismissLoader();}
@@ -87,19 +85,18 @@ export class VaultRedeemPage implements OnInit {
       const index: number = this.bookingData.selectedOutlet.indexOf(outletDetails.id);
       this.bookingData.selectedOutlet.splice(index, 1);
     }
-    console.log('updated Selected Outlet',this.bookingData.selectedOutlet);
   }
 
   confirmBooking(){
-    console.log('Booking Data' ,this.bookingData);
-    console.log('Item Count',this.itemCount);
-    console.log('cart price',this.cartPrice);
-
-    this._userDetails.updateVaultLiquorBalance(this.orderDetails,this.itemCount,this.cartPrice,this.bookingData).subscribe(
-      res => {console.log(res)},
-      err => {console.log(err)}
+    console.log('button Clicked');
+    this._userDetails.getVaultOrderDetailsById(this.orderDetails.id,this.userId).subscribe(
+      res => {
+        // updating the Data
+        this._userDetails.updateVaultLiquorBalance(res[0],this.itemCount,this.cartPrice,this.bookingData);
+        console.log('response' ,res);
+      },
+      err => {}
     )
-
   }
 
 }
