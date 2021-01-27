@@ -404,4 +404,12 @@ updateVaultLiquorBalance(orderDetails,totalRedeemed,cartPrice,bookingData){
     });
 }
 
+updateLiquorPriceAfterPurchase(details,newPrice){
+    // the Details is the Parameter which is hold all the Information of Liquor price and The New price is Holding the new Price increase or Decrease
+    // here the BigLiquorActualPrice is the base column or for Price Calculation
+    return this.afs.collection('/liquorPrice').doc(details.itemId.toString()).update({
+        BigLiquorActualPrice : newPrice,
+    });
+}
+
 }

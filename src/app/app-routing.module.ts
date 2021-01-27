@@ -3,9 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-   path: '',
-   redirectTo: 'login',
-   pathMatch: 'full'
+   path: '',redirectTo: 'login',pathMatch: 'full'
   },
   {
     path: 'login',
@@ -110,7 +108,8 @@ const routes: Routes = [
   {
     path: 'vault-redeem/:vaultOrderId',
     loadChildren: () => import('./vault-redeem/vault-redeem.module').then( m => m.VaultRedeemPageModule)
-  },  {
+  },
+  {
     path: 'vault-order-history',
     loadChildren: () => import('./vault-order-history/vault-order-history.module').then( m => m.VaultOrderHistoryPageModule)
   },
@@ -122,8 +121,6 @@ const routes: Routes = [
     path: 'slide',
     loadChildren: () => import('./slide/slide.module').then( m => m.SlidePageModule)
   }
-
-
 ];
 
 @NgModule({

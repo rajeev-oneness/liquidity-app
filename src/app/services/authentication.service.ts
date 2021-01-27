@@ -96,7 +96,7 @@ export class AuthenticationService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         loading.dismiss();
         this.authState = res.user;
         return { status: 1, user: res.user };
@@ -110,7 +110,7 @@ export class AuthenticationService {
 
   getUserId() {
     if (this.authState) {
-      console.log("userId",this.authState.uid)
+      // console.log("userId",this.authState.uid)
       return this.authState.uid;
     }
     else {
@@ -145,7 +145,6 @@ export class AuthenticationService {
   // Add Profile Image
   addProfileImage(url){
     let id =   this.getUserId()
-    console.log("id ", id)
     return this.afs.doc(`/userProfile/${id}`).update({profileImage: url})
           .then(res => {
             return {status : 1, data : res}

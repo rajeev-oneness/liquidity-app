@@ -45,11 +45,20 @@ export class VaultcomparePage implements OnInit {
   }
 
   checkout_btn(){
-
     this.addToCart.carts.forEach((value) => {
       this.saveOrderAPI(value);
+      // price Updating By Value
+      if(parseFloat(value.BigLiquorActualPrice) > parseFloat(value.BigLiquorNormalPrice)){}
+      else if(parseFloat(value.BigLiquorActualPrice) <= parseFloat(value.BigLiquorNormalPrice)){
+        let nowPrice = parseFloat(value.BigLiquorNormalPrice) + parseFloat(value.BigLiquorNormalPrice) * (2/100);
+        this.updatePriceValue(value,nowPrice);
+      }
     });
     this._router.navigate(['/order-success']);
+  }
+  // Updating The Liquor Price When Demanding High
+  updatePriceValue(value,updatePrice){
+    this._userDetailsApi.updateLiquorPriceAfterPurchase(value,updatePrice);
   }
 
   saveOrderAPI(value){
@@ -62,6 +71,7 @@ interface CARTSITEM {
   itemId : string;
   liquorCategoryId : string;
   itemsCount : string;
+  BigLiquorActualPrice : string;
   BigLiquorMaxPrice : string;
   BigLiquorMinPrice: string;
   BigLiquorNormalPrice : string;

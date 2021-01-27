@@ -82,6 +82,7 @@ export class VaultselectedPage implements OnInit {
         BigLiquorMaxPrice: categoryItem.BigLiquorMaxPrice,
         BigLiquorMinPrice : categoryItem.BigLiquorMinPrice,
         BigLiquorNormalPrice: categoryItem.BigLiquorNormalPrice,
+        BigLiquorActualPrice : categoryItem.BigLiquorActualPrice,
         liquorCategory: categoryItem.liquorCategory,
         liquorShopId: categoryItem.liquorShopId,
         liquorName : categoryItem.liquorName,
@@ -90,7 +91,7 @@ export class VaultselectedPage implements OnInit {
     // retriving the price from cuttent array
     let calculatePrice = 0;
     this.addToCart.carts.forEach(function (value) {
-      calculatePrice += parseFloat(value.itemsCount) * parseFloat(value.BigLiquorNormalPrice);
+      calculatePrice += parseFloat(value.itemsCount) * parseFloat(value.BigLiquorActualPrice);
     });
     this.cartPrice = calculatePrice;
   }
@@ -111,6 +112,7 @@ interface CARTSITEM {
   BigLiquorMaxPrice : string;
   BigLiquorMinPrice: string;
   BigLiquorNormalPrice : string;
+  BigLiquorActualPrice : string;
   liquorCategory : string;
   liquorShopId : string;
   liquorName: string;
