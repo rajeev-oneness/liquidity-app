@@ -1,9 +1,7 @@
 import { UserDetailsService } from 'src/app/services/user-details.service';
 import { HelperProvider } from 'src/app/services/helper.service';
 import { Component, OnInit } from '@angular/core';
-import { JsonPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-vaultselected',
@@ -20,7 +18,6 @@ export class VaultselectedPage implements OnInit {
   constructor(
     private userDetails: UserDetailsService,
     private helper: HelperProvider,
-    private authService : AuthenticationService,
     private _router: Router){
       this.addToCart = {carts: []};
       this.userId = localStorage.getItem('user_id');
