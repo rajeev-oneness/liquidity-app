@@ -20,6 +20,7 @@ export class VaultselectedPage implements OnInit {
     private helper: HelperProvider,
     private _router: Router){
       this.addToCart = {carts: []};
+      // this.viewCart = {cart : []};
       this.userId = localStorage.getItem('user_id');
   }
 
@@ -65,6 +66,8 @@ export class VaultselectedPage implements OnInit {
     carts: CARTSITEM[];
   };
 
+  // public viewCart : { cart : VIEWCART[];}
+
   public cartPrice = 0;
   public radioButtonSelect(categoryItem,valueSelected) {
     this.cartPrice = 0.00; // setting the Cart Price to be Zero
@@ -99,6 +102,10 @@ export class VaultselectedPage implements OnInit {
     localStorage.setItem('cartsPrice',JSON.stringify(this.cartPrice));
     return this._router.navigate(['/vaultcompare']);
   }
+
+  getSelectedBefore(category){
+    return 0;
+  }
 }
 
 interface CARTSITEM {
@@ -114,3 +121,23 @@ interface CARTSITEM {
   liquorShopId : string;
   liquorName: string;
 }
+
+// interface VIEWCART {
+//   id : string;
+//   BigLiquorActualPrice : string;
+//   BigLiquorMaxPrice : string;
+//   BigLiquorMinPrice : string;
+//   BigLiquorNormalPrice : string;
+//   SmallLiquorMaxPrice : string;
+//   SmallLiquorMinPrice : string;
+//   SmallLiquorNormalPrice : string;
+//   counter : string;
+//   quantity : string;
+//   image : string;
+//   liquorCategory : string;
+//   liquorCategoryId : string;
+//   liquorName : string;
+//   liquorSegment : string;
+//   liquorShopId : string;
+//   liquorShopOwner : string;
+// }
