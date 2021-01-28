@@ -11,9 +11,7 @@ import { UserDetailsService } from '../services/user-details.service';
 })
 export class VaultcomparePage implements OnInit {
 
-  public addToCart: {
-    carts: CARTSITEM[];
-  };
+  public addToCart: {carts: CARTSITEM[];};
   public cartPrice : any = 0;
 
   constructor(private _userDetailsApi:UserDetailsService,private helper:HelperProvider,
@@ -30,7 +28,6 @@ export class VaultcomparePage implements OnInit {
   getCartData(){
     this.addToCart.carts = JSON.parse(localStorage.getItem('cartsData'));
     this.cartPrice = localStorage.getItem('cartsPrice');
-    // console.log(this.addToCart.carts);
   }
 
   public outletDetails : any = [];
@@ -44,22 +41,60 @@ export class VaultcomparePage implements OnInit {
     )
   }
 
+  public priceIncreaseByPercentage : any = (2/100);
   checkout_btn(){
-    this.addToCart.carts.forEach((value) => {
-      this.saveOrderAPI(value);
-      // price Updating By Value
-      if(parseFloat(value.BigLiquorActualPrice) > parseFloat(value.BigLiquorNormalPrice)){}
-      else if(parseFloat(value.BigLiquorActualPrice) <= parseFloat(value.BigLiquorNormalPrice)){
-        let nowPrice = parseFloat(value.BigLiquorNormalPrice) + parseFloat(value.BigLiquorNormalPrice) * (2/100);
-        this.updatePriceValue(value,nowPrice);
-      }
-    });
-    this._router.navigate(['/order-success']);
+    if(this.addToCart.carts.length > 0){
+      let PriceIncreasingByID = []; // Containing The Id which has Price Higher so that we can skip the Id with the Price Lower
+      this.addToCart.carts.forEach((value) => {
+        // price Increasing the same Order after the Order Success
+        let nowPrice = parseFloat(value.BigLiquorActualPrice) + parseFloat(this.priceIncreaseByPercentage);
+        this.updatePriceValueOfLiquor(value.itemId,nowPrice);
+        // Price Decreasing Other Order after Order Success
+        PriceIncreasingByID.push(value.itemId);// pusing the Id Which will be Skipped
+        this.saveOrderAPI(value);
+      });
+      this.DeceasePriceValueforTheOrderExceptThisIds(PriceIncreasingByID);
+      // this._router.navigate(['/order-success']);
+    }else{
+      this.helper.showErrorCustom('Please select any Order');
+    }
   }
-  // Updating The Liquor Price When Demanding High
-  updatePriceValue(value,updatePrice){
+  // Increasing The Liquor Price When Demanding High
+  updatePriceValueOfLiquor(value,updatePrice){
     this._userDetailsApi.updateLiquorPriceAfterPurchase(value,updatePrice);
   }
+
+  // Deceasing the Liquor Price When Not Demanding
+  public newData : any = [];
+  DeceasePriceValueforTheOrderExceptThisIds(ExceptIds){
+    // getting the Whole Liquor Data
+    
+    this._userDetailsApi.getLiquorDataExceptTheseIds(ExceptIds).subscribe(
+      res => {
+        this.newData = res;
+        this.filterDataAndUpdate(ExceptIds,this.newData);
+      },
+      err => {console.log(err)},
+    )
+  }
+
+  public priceDecreaseByPercentage : any = (0.5/100);
+  filterDataAndUpdate(ExceptedID,newData){
+      // filtering the Ids
+      let array = [];
+      newData.forEach((value) => {
+        if(ExceptedID.find(x=>x == value.id) == undefined){
+          // updating the Current Price
+          if(parseFloat(value.BigLiquorActualPrice) >= parseFloat(value.BigLiquorMinPrice) && parseFloat(value.BigLiquorActualPrice) >= parseFloat(value.BigLiquorNormalPrice)){
+            let nowPrice = parseFloat(value.BigLiquorActualPrice) - parseFloat(this.priceDecreaseByPercentage);
+            // array.push({id:value.id,price:nowPrice});
+            this.updatePriceValueOfLiquor(value.id,nowPrice);
+          }
+        }
+      });
+      // console.log('new array',array);
+  }
+
 
   saveOrderAPI(value){
     this._authService.addVoultOrder(value);
@@ -68,6 +103,18 @@ export class VaultcomparePage implements OnInit {
 }
 
 interface CARTSITEM {
+  itemId : string;
+  liquorCategoryId : string;
+  itemsCount : string;
+  BigLiquorActualPrice : string;
+  BigLiquorMaxPrice : string;
+  BigLiquorMinPrice: string;
+  BigLiquorNormalPrice : string;
+  liquorCategory : string;
+  liquorShopId : string;
+}
+
+interface WHOLELIQUORPRICE {
   itemId : string;
   liquorCategoryId : string;
   itemsCount : string;

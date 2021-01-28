@@ -68,7 +68,7 @@
       <img src="assets/cart.png">
       <div class="item_total">
         <p><small>{{addToCart.carts.length}} ITEM IN CART</small></p>
-        <p class="price_end">₹ {{cartPrice}}.00</p>
+        <p class="price_end">₹ {{cartPrice | number : '.2-2'}}</p>
         <p><small>30ml per unit</small></p>
       </div>
     </div>

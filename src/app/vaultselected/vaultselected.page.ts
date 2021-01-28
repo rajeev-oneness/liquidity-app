@@ -97,10 +97,14 @@ export class VaultselectedPage implements OnInit {
   }
 
   compareNDreview(){
-    // Storing the data Locally on v8 browser
-    localStorage.setItem('cartsData',JSON.stringify(this.addToCart.carts));
-    localStorage.setItem('cartsPrice',JSON.stringify(this.cartPrice));
-    return this._router.navigate(['/vaultcompare']);
+    if(this.addToCart.carts.length > 0){
+      // Storing the data Locally on v8 browser
+      localStorage.setItem('cartsData',JSON.stringify(this.addToCart.carts));
+      localStorage.setItem('cartsPrice',JSON.stringify(this.cartPrice));
+      return this._router.navigate(['/vaultcompare']);
+    }else{
+      this.helper.showErrorCustom('Please select the Quantity');
+    }
   }
 
   getSelectedBefore(category){

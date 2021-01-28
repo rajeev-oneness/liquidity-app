@@ -68,7 +68,7 @@
 					    </ion-col>
 					    <ion-col size="5" class="ion-no-padding">
 					    	<div class="drink_content">
-					      		<h3 class="m-0 ion-text-right">₹ {{cartPrice}}</h3>
+					      		<h3 class="m-0 ion-text-right">₹ {{cartPrice | number : '.2-2'}}</h3>
 					      	</div>
 					    </ion-col>
 					</ion-row>
@@ -104,7 +104,7 @@
   		<img src="assets/cart.png">
   		<div class="item_total">
   			<p><small>{{addToCart.carts.length}} ITEM IN CART</small></p>
-  			<p class="price_end">₹ {{cartPrice}}.00</p>
+  			<p class="price_end">₹ {{cartPrice | number : '.2-2'}}</p>
   			<p><small>plus taxes*</small></p>
   		</div>
   	</div>
