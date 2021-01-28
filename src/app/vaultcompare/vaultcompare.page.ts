@@ -87,8 +87,13 @@ export class VaultcomparePage implements OnInit {
           // updating the Current Price
           if(parseFloat(value.BigLiquorActualPrice) >= parseFloat(value.BigLiquorMinPrice) && parseFloat(value.BigLiquorActualPrice) >= parseFloat(value.BigLiquorNormalPrice)){
             let nowPrice = parseFloat(value.BigLiquorActualPrice) - parseFloat(this.priceDecreaseByPercentage);
-            // array.push({id:value.id,price:nowPrice});
-            this.updatePriceValueOfLiquor(value.id,nowPrice);
+            if(nowPrice < parseFloat(value.BigLiquorMinPrice)){
+              this.updatePriceValueOfLiquor(value.id,value.BigLiquorMinPrice);
+            }
+            else{
+              // array.push({id:value.id,price:nowPrice});
+              this.updatePriceValueOfLiquor(value.id,nowPrice);
+            }
           }
         }
       });

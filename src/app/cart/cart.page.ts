@@ -40,18 +40,75 @@ export class CartPage implements OnInit {
 
   }
   removeItem(index,item){
-    console.log(index);
+    // console.log(index);
     this.cart_items.splice(index, 1);
     this.final_cart_price=Number(this.final_cart_price)-(Number(item.counter)*Number(item.BigLiquorNormalPrice))
-  }
-
-  pay(){
-    let uId = this.authService.getUserId();
-    this.authService.liquorOrderHistory(uId,'1140',this.shopDetails.id,this.today_date,'LI123645789','wallet',this.cart_items,'0','0','0',this.final_cart_price,this.shopDetails.image,
-    this.shopDetails.liquorShopName);
-    this.navCtrl.navigateForward('/order-success');
 
   }
+
+    pay(){
+      if(this.cart_items.length > 0){
+        let uId = this.authService.getUserId();
+        this.authService.liquorOrderHistory(uId,'1140',this.shopDetails.id,this.today_date,'LI123645789','wallet',this.cart_items,'0','0','0',this.final_cart_price,this.shopDetails.image,
+        this.shopDetails.liquorShopName);
+        this.priceIncreaseOrDecrease();
+        // this.navCtrl.navigateForward('/order-success');
+      }else{
+        this.helper.showErrorCustom('Please select any Order');
+      }
+    }
+
+    public priceIncreaseByPercentage : any = (2/100);
+    public priceDecreaseByPercentage : any = (0.5/100);
+    priceIncreaseOrDecrease(){
+      let PriceIncreasingByID = []; // Containing The Id which has Price Higher so that we can skip the Id with the Price Lower
+      this.cart_items.forEach((value) => {
+        // price Increasing the same Order after the Order Success
+        let nowPrice = parseFloat(value.BigLiquorActualPrice) + parseFloat(this.priceIncreaseByPercentage);
+        this.updatePriceValueOfLiquor(value.itemId,nowPrice);
+        // Price Decreasing Other Order after Order Success
+        PriceIncreasingByID.push(value.itemId);// pusing the Id Which will be Skipped
+      });
+      this.DeceasePriceValueforTheOrderExceptThisIds(PriceIncreasingByID);
+    }
+
+    updatePriceValueOfLiquor(value,updatePrice){
+      this.userDetails.updateLiquorPriceAfterPurchase(value,updatePrice);
+    }
+
+    public newData : any = [];
+    DeceasePriceValueforTheOrderExceptThisIds(ExceptIds){
+      // getting the Whole Liquor Data
+      this.userDetails.getLiquorDataExceptTheseIds(ExceptIds).subscribe(
+        res => {
+          this.newData = res;
+          this.filterDataAndUpdate(ExceptIds,this.newData);
+        },
+        err => {console.log(err)},
+      )
+    }
+
+  filterDataAndUpdate(ExceptedID,newData){
+      // filtering the Ids
+      let array = [];
+      newData.forEach((value) => {
+        if(ExceptedID.find(x=>x == value.id) == undefined){
+          // updating the Current Price
+          if(parseFloat(value.BigLiquorActualPrice) >= parseFloat(value.BigLiquorMinPrice) && parseFloat(value.BigLiquorActualPrice) >= parseFloat(value.BigLiquorNormalPrice)){
+            let nowPrice = parseFloat(value.BigLiquorActualPrice) - parseFloat(this.priceDecreaseByPercentage);
+            if(nowPrice < parseFloat(value.BigLiquorMinPrice)){
+              this.updatePriceValueOfLiquor(value.id,value.BigLiquorMinPrice);
+            }
+            else{
+              // array.push({id:value.id,price:nowPrice});
+              this.updatePriceValueOfLiquor(value.id,nowPrice);
+            }
+          }
+        }
+      });
+      // console.log('new array',array);
+  }
+
 
   }
   

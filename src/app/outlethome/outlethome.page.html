@@ -63,9 +63,9 @@
 		    			<div class="drink_content">
 		    				<h3>{{item.liquorName}}</h3>
 		    				<ul>
-		    					<li>HIGH: <span class="price_hike">₹{{item.BigLiquorMaxPrice}}.00<img src="assets/green-arrow.png"></span></li>
-		    					<li>HIGH: <span class="price_down">₹ {{item.BigLiquorMinPrice}}.00<img src="assets/red-arrow.png"></span></li>
-		    					<li>NOW: <span class="price_now">₹ {{item.BigLiquorNormalPrice}}.00</span></li>
+		    					<li>HIGH: <span class="price_hike">₹ {{item.BigLiquorMaxPrice | number : '.2-2'}}<img src="assets/green-arrow.png"></span></li>
+		    					<li>HIGH: <span class="price_down">₹ {{item.BigLiquorMinPrice | number : '.2-2'}}<img src="assets/red-arrow.png"></span></li>
+		    					<li>NOW: <span class="price_now">₹ {{item.BigLiquorNormalPrice | number : '.2-2'}}</span></li>
 		    				</ul>
 		    			</div>
 				    </ion-col>
@@ -403,7 +403,7 @@
   		<img src="assets/cart.png">
   		<div class="item_total">
   			<p><small>{{addToCart.carts.length}} ITEM IN CART</small></p>
-  			<p class="price_end">₹ {{final_cart_value}}.00</p>
+  			<p class="price_end">₹ {{final_cart_value | number : '.2-2'}}</p>
   			<p><small>plus taxes*</small></p>
   		</div>
   	</div>

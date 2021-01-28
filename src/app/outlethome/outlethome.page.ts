@@ -148,29 +148,8 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
 
 
         public optionsliquorShopOwner(value, index:number) { //here item is an object
-          console.log("<<<<<<<<<<",value);
+          // console.log("<<<<<<<<<<",value);
       }
-
-   
-
-      // addedToCart(itemName,unit,cost){
-      //   if (cost!=0) {
-      //     this.count_CartItem=this.count_CartItem+1;
-      //   }
-      //   console.log(this.count_CartItem);
-      //   this.final_cart_price=Number(this.cartTotal_unit50) +Number(this.cartTotal_unit25) +Number(this.cartTotal_unit0) ;
-      //   console.log(this.final_cart_price);
-      //   this.checkout.push({
-      //     liquorName:itemName,
-      //     liquorUnit:unit,
-      //     liquorPrice:cost
-          
-      // });
-      // this.checkout_final.push(...this.checkout);
-      // this.checkout=[];
-
-      
-      //   }
 
         checkout_btn(){
           let uId = this.authService.getUserId();
@@ -209,33 +188,18 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
               itemId : item.id,
               BigLiquorNormalPrice:item.BigLiquorNormalPrice,
               liquorName:item.liquorName,
+              BigLiquorActualPrice : item.BigLiquorActualPrice,
+              BigLiquorMinPrice : item.BigLiquorMinPrice,
               total:String( parseFloat(item.counter) * parseFloat(item.BigLiquorNormalPrice)), 
             }); 
           }
           let calculatePrice = 0;
           this.addToCart.carts.forEach(function (value) {
-            calculatePrice += value.counter * parseFloat(value.BigLiquorNormalPrice);
+            calculatePrice += value.counter * parseFloat(value.BigLiquorActualPrice);
           });
           this.final_cart_value = calculatePrice; 
-          console.log(">>>",this.addToCart.carts)
-
+          // console.log(">>>",this.addToCart.carts)
           let uId = this.authService.getUserId();
-          // this.all_liquor_categorywise.find(x => x.id === item.id).counter = Number(item.counter)-1;
-          
-        //   this.userDetails.getCartData(uId).subscribe(
-        //     data => {
-        //         this.cart_items = data;
-        //         console.log(data)
-        //         console.log("arrLength>>",this.cart_items.length)
-        //         this.helper.dismissLoader();
-        //     },
-        //     err => {
-        //         console.log(err);
-        //         this.helper.dismissLoader();
-        //     }
-        // );
-
-          
           }
         gotoCart(){
           localStorage.setItem("totalCartValue",this.final_cart_value);
@@ -255,39 +219,15 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
             itemId : item.id,
             BigLiquorNormalPrice:item.BigLiquorNormalPrice,
             liquorName:item.liquorName,
-            total:String( parseFloat(item.counter) * parseFloat(item.BigLiquorNormalPrice)), 
+            BigLiquorActualPrice : item.BigLiquorActualPrice,
+            BigLiquorMinPrice : item.BigLiquorMinPrice,
+            total:String( parseFloat(item.counter) * parseFloat(item.BigLiquorActualPrice)), 
           });
           let calculatePrice = 0;
           this.addToCart.carts.forEach(function (value) {
-            calculatePrice += value.counter * parseFloat(value.BigLiquorNormalPrice);
+            calculatePrice += value.counter * parseFloat(value.BigLiquorActualPrice);
           });
           this.final_cart_value = calculatePrice; 
-
-
-
-
-
-
-          // this.all_liquor_categorywise.find(x => x.id === item.id).counter = Number(item.counter)+1;
-          // this.final_cart_value = 0;
-          // console.log("final_cart_items................................",this.final_cart_items);
-          // this.addToCart.carts = this.addToCart.carts.filter(({ itemId }) => itemId !== item.id); // removing the Duplicasy or 0 selected from Local variable
-          // this.addToCart.carts.push({
-          //   counter : item.counter,
-          //   itemId : item.id,
-          //   BigLiquorNormalPrice:item.BigLiquorNormalPrice,
-          //   liquorName:item.liquorName,
-          //   total:String( parseFloat(item.counter) * parseFloat(item.BigLiquorNormalPrice)), 
-          // });
-          // let calculatePrice = 0;
-          // this.addToCart.carts.forEach(function (value) {
-          //   calculatePrice += value.counter * parseFloat(value.BigLiquorNormalPrice);
-          // });
-          // this.final_cart_value = calculatePrice;
-          // console.log("+++++++++++++",this.addToCart.carts)
-
-
-
         }
 
         public addToCart: {
@@ -311,4 +251,6 @@ interface CARTSITEM {
   BigLiquorNormalPrice:string,
   liquorName:string,
   total:string,
+  BigLiquorActualPrice: string;
+  BigLiquorMinPrice : string;
 }
