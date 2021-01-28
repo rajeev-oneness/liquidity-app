@@ -20,7 +20,6 @@ export class VaultselectedPage implements OnInit {
     private helper: HelperProvider,
     private _router: Router){
       this.addToCart = {carts: []};
-      // this.viewCart = {cart : []};
       this.userId = localStorage.getItem('user_id');
   }
 
@@ -65,8 +64,6 @@ export class VaultselectedPage implements OnInit {
   public addToCart: {
     carts: CARTSITEM[];
   };
-
-  // public viewCart : { cart : VIEWCART[];}
 
   public cartPrice = 0;
   public radioButtonSelect(categoryItem,valueSelected) {
@@ -125,23 +122,3 @@ interface CARTSITEM {
   liquorShopId : string;
   liquorName: string;
 }
-
-// interface VIEWCART {
-//   id : string;
-//   BigLiquorActualPrice : string;
-//   BigLiquorMaxPrice : string;
-//   BigLiquorMinPrice : string;
-//   BigLiquorNormalPrice : string;
-//   SmallLiquorMaxPrice : string;
-//   SmallLiquorMinPrice : string;
-//   SmallLiquorNormalPrice : string;
-//   counter : string;
-//   quantity : string;
-//   image : string;
-//   liquorCategory : string;
-//   liquorCategoryId : string;
-//   liquorName : string;
-//   liquorSegment : string;
-//   liquorShopId : string;
-//   liquorShopOwner : string;
-// }

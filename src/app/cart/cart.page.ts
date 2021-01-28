@@ -39,7 +39,6 @@ export class CartPage implements OnInit {
   removeItem(index,item){
     this.cart_items.splice(index, 1);
     this.final_cart_price=Number(this.final_cart_price)-(Number(item.counter)*Number(item.BigLiquorNormalPrice))
-
   }
 
     pay(){

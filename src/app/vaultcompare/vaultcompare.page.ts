@@ -81,7 +81,6 @@ export class VaultcomparePage implements OnInit {
   public priceDecreaseByPercentage : any = (0.5/100);
   filterDataAndUpdate(ExceptedID,newData){
       // filtering the Ids
-      let array = [];
       newData.forEach((value) => {
         if(ExceptedID.find(x=>x == value.id) == undefined){
           // updating the Current Price
@@ -91,13 +90,11 @@ export class VaultcomparePage implements OnInit {
               this.updatePriceValueOfLiquor(value.id,value.BigLiquorMinPrice);
             }
             else{
-              // array.push({id:value.id,price:nowPrice});
               this.updatePriceValueOfLiquor(value.id,nowPrice);
             }
           }
         }
       });
-      // console.log('new array',array);
   }
 
 
