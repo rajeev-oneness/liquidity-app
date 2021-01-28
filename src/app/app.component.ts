@@ -103,7 +103,7 @@ export class AppComponent {
         public router: Router,
         private helper: HelperProvider,
   ) {
-    // this.initializeApp();
+    this.initializeApp();
   }
 
   initializeApp() {
