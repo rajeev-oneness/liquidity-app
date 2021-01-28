@@ -30,7 +30,6 @@ export class MyprofilePage implements OnInit {
     this.user_mail=this.user.mail;
     this.user_name=this.user.name;
     this.user_mobile=this.user.mobile;
-        // console.log('retrievedObject: ', JSON.parse(retrievedObject));
   }
 
 }

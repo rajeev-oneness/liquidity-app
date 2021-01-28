@@ -4,7 +4,6 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ToastController,IonRouterOutlet ,AlertController } from '@ionic/angular';
 import { HelperProvider } from 'src/app/services/helper.service';
 import { Router } from '@angular/router';
-// import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import {Location} from '@angular/common';
 
 @Component({
@@ -21,7 +20,6 @@ export class LoginPage implements OnInit {
   usermail = '';
   password = '';
   cpassword = '';
-  // loginForm: FormGroup;
   isSubmitted = false;
   isSignUpSubmitted = false;
 
@@ -31,7 +29,6 @@ export class LoginPage implements OnInit {
    constructor(
   	  private authService: AuthenticationService,
       private navCtrl: NavController,
-      // public formBuilder: FormBuilder,
       public toastController: ToastController,
       public helper: HelperProvider,
       public router: Router,
@@ -73,14 +70,9 @@ export class LoginPage implements OnInit {
   	 }
 
   ngOnInit() {
-             this.menuCtrl.close();
-this.menuCtrl.enable(false);
+              this.menuCtrl.close();
+              this.menuCtrl.enable(false);
   }
-
-   // checkLgField(field) {
-   //    const formField = this.loginForm.controls[field];
-   //    return formField.invalid && (formField.touched || this.isSubmitted);
-   // }
 
    pswdvisible() {
       console.log('Testing...');
@@ -93,10 +85,6 @@ this.menuCtrl.enable(false);
 
     login() {
 	      this.isSubmitted = true;
-
-	      // if (this.loginForm.valid) {
-	      //     const email = this.loginForm.value.email;
-	      //     const password = this.loginForm.value.password;
         if(this.usermail==''){
             this.helper.presentToast("Please enter your mail");
             }else if(this.password==''){
@@ -109,8 +97,6 @@ this.menuCtrl.enable(false);
 	                      this.helper.showError(res.error.code);
 	                  }
 	                  if (res.status === 1) {
-	                      // this.loginForm.controls.email.patchValue('');
-                        // this.loginForm.controls.password.patchValue('');
                         localStorage.setItem('user_id',res.user.uid)
                         window.location.href='/homenew';
 	                     // this.navCtrl.navigateForward('/homenew');
@@ -120,7 +106,6 @@ this.menuCtrl.enable(false);
 	                  console.log('Login err : ', err);
 	              });
                             }
-	      // }
   	}
 
     private async onBack() {
