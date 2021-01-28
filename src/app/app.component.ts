@@ -1,18 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { HelperProvider } from './services/helper.service';
 import { AuthenticationService } from './services/authentication.service';
-
 import { Router } from '@angular/router';
-import { ViewChildren, QueryList } from '@angular/core';
-
 import { AlertController, NavController, IonRouterOutlet } from '@ionic/angular';
-
 import { take } from 'rxjs/operators';
-import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -110,8 +105,6 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
-
       const userAuthSubs = this.auth.currentAuthState.subscribe(auth => {
         console.log('App Component authState : ', auth);
         userAuthSubs.unsubscribe();
@@ -120,8 +113,6 @@ export class AppComponent {
             this.helper.dismissLoader();
             this.auth.getUserById(this.auth.getUserId()).pipe(take(1)).subscribe(
                 (user: any) => {
-                    
-                    console.log('user>>>>', user);
                     this.user=user;
                     this.user_mail=this.user.mail;
                     this.user_name=this.user.name;
