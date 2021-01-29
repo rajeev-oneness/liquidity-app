@@ -23,7 +23,7 @@
 	    <ion-segment-button value="liquor">
 	      LIQUOR
 	    </ion-segment-button>
-	    <ion-segment-button value="food">
+	    <ion-segment-button value="food" (click)="getFoodCategoryandFoodItem()">
 	      FOOD
 	    </ion-segment-button>
 	    <ion-segment-button value="soft-beverage">
@@ -36,380 +36,290 @@
 	</div>
 
 	<div [ngSwitch]="drinks">
-	  <ion-list *ngSwitchCase="'liquor'" class="segment_2">
-	    <div padding>
-		  <ion-segment [(ngModel)]="scotch">
-		    <ion-segment-button  *ngFor="let item of liquorCategory" value="{{item.categoryName}}" (click)="liquorSegmentPremium(item)" >
-		      <img src="{{item.image}}">
-		      <ion-button class="" shape="round">{{item.categoryName}}</ion-button>
-		    </ion-segment-button>
-		    <!-- <ion-segment-button value="regular-scotch" (click)="liquorSegmentRegular()">
-		      <img src="assets/img-6.png">
-		      <ion-button class="" shape="round">Regular Scotch</ion-button>
-		    </ion-segment-button>
-		    <ion-segment-button value="scotch-whisky" (click)="liquorSegmentWhisky()">
-		      <img src="assets/img-7.png">
-		      <ion-button class="" shape="round">Scotch Whisky</ion-button>
-		    </ion-segment-button> -->
-		  </ion-segment>
-		</div>
+		<ion-list *ngSwitchCase="'liquor'" class="segment_2">
+			<div padding>
+				<ion-segment [(ngModel)]="scotch">
+					<ion-segment-button  *ngFor="let item of liquorCategory" value="{{item.categoryName}}" (click)="liquorSegmentPremium(item)" >
+					<img src="{{item.image}}">
+					<ion-button class="" shape="round">{{item.categoryName}}</ion-button>
+					</ion-segment-button>
+					<!-- <ion-segment-button value="regular-scotch" (click)="liquorSegmentRegular()">
+					<img src="assets/img-6.png">
+					<ion-button class="" shape="round">Regular Scotch</ion-button>
+					</ion-segment-button>
+					<ion-segment-button value="scotch-whisky" (click)="liquorSegmentWhisky()">
+					<img src="assets/img-7.png">
+					<ion-button class="" shape="round">Scotch Whisky</ion-button>
+					</ion-segment-button> -->
+				</ion-segment>
+			</div>
 
-		<div [ngSwitch]="scotch">
-		  <ion-list *ngSwitchCase=this.scotch class="drink_items">
-		    <ion-item *ngFor="let item of all_liquor_categorywise">
-		      <ion-grid>
-		      	<ion-row class="ion-align-items-center">
-		    		<ion-col size="7">
-		    			<div class="drink_content">
-		    				<h3>{{item.liquorName}}</h3>
-		    				<ul>
-		    					<li>HIGH: <span class="price_hike">₹ {{item.BigLiquorMaxPrice | number : '.2-2'}}<img src="assets/green-arrow.png"></span></li>
-		    					<li>HIGH: <span class="price_down">₹ {{item.BigLiquorMinPrice | number : '.2-2'}}<img src="assets/red-arrow.png"></span></li>
-		    					<li>NOW: <span class="price_now">₹ {{item.BigLiquorNormalPrice | number : '.2-2'}}</span></li>
-		    				</ul>
-		    			</div>
-				    </ion-col>
-				    <ion-col size="4">
-				      <div class="quantity">
-						  <div (click)="plusss(item)">
-							<span class="plus" >+</span>
-						  </div>
-						  <p>{{getthisCounter(item)}}</p>
-						  <div (click)="minusss(item)">
-							<span class="minus" >-</span>
-						  </div>
-				      </div>
-				    </ion-col>
-				    <ion-col size="1" class="ion-no-padding">
-				      <img src="assets/copy.png" style="padding-top: 5px;">
-				    </ion-col>
-				  </ion-row>
-		      </ion-grid>
-		    </ion-item>
+			<div [ngSwitch]="scotch">
+			<ion-list *ngSwitchCase=this.scotch class="drink_items">
+				<ion-item *ngFor="let item of all_liquor_categorywise">
+				<ion-grid>
+					<ion-row class="ion-align-items-center">
+						<ion-col size="7">
+							<div class="drink_content">
+								<h3>{{item.liquorName}}</h3>
+								<ul>
+									<li>HIGH: <span class="price_hike">₹ {{item.BigLiquorMaxPrice | number : '.2-2'}}<img src="assets/green-arrow.png"></span></li>
+									<li>HIGH: <span class="price_down">₹ {{item.BigLiquorMinPrice | number : '.2-2'}}<img src="assets/red-arrow.png"></span></li>
+									<li>NOW: <span class="price_now">₹ {{item.BigLiquorNormalPrice | number : '.2-2'}}</span></li>
+								</ul>
+							</div>
+						</ion-col>
+						<ion-col size="4">
+						<div class="quantity">
+							<div (click)="plusss(item)">
+								<span class="plus" >+</span>
+							</div>
+							<p>{{getthisCounter(item)}}</p>
+							<div (click)="minusss(item)">
+								<span class="minus" >-</span>
+							</div>
+						</div>
+						</ion-col>
+						<ion-col size="1" class="ion-no-padding">
+						<img src="assets/copy.png" style="padding-top: 5px;">
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+				</ion-item>
 
-		  </ion-list>
-		</div>
-	  </ion-list>
+			</ion-list>
+			</div>
+		</ion-list>
 
+		<ion-list *ngSwitchCase="'food'" class="ion-no-padding">
+			<div *ngFor="let category of addToFoodItem.foodItem">
+				<div class="title_bar">
+					<h2 class="title">{{category.category}}</h2>
+				</div>
+				<div class="drink_items">
+					<ion-item *ngFor="let foodItem of category.itemsData">
+						<ion-grid>
+							<ion-row class="ion-align-items-center">
+								<ion-col size="9" class="pl-0">
+									<div class="drink_content {{foodItem.veg}}">
+										<h3 class="no-margin">{{foodItem.item}}</h3>
+										<p class="net">₹ {{foodItem.price | number : '.2-2'}}</p>
+										<ul>
+											<li>{{foodItem.description}}</li>
+										</ul>
+									</div>
+								</ion-col>
+								<ion-col size="3">
+								<div class="quantity">
+									<div (click)="foodItemPlus(foodItem)">
+										<span class="plus" >+</span>
+									</div>
+									<p>{{getFoodQuantity(foodItem)}}</p>
+									<div (click)="foodItemMinus(foodItem)">
+										<span class="minus" >-</span>
+									</div>
+								</div>
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+					</ion-item>
 
+				</div>
+			</div>
+		</ion-list>
 
-	  <ion-list *ngSwitchCase="'food'" class="ion-no-padding">
-	    <div class="title_bar">
-			<h2 class="title">Starter</h2>
-		</div>
-		<div class="drink_items">
+		<ion-list *ngSwitchCase="'soft-beverage'" class="ion-no-padding">
+			<div class="title_bar">
+				<h2 class="title">Starter</h2>
+			</div>
+			<div class="drink_items">
+				<ion-item>
+				<ion-grid>
+					<ion-row class="ion-align-items-center">
+						<ion-col size="9" class="pl-0">
+							<div class="drink_content veg">
+								<!-- <img src="assets/veg.png"> -->
+								<h3 class="no-margin">Paneer Multani Tikka</h3>
+								<p class="net">₹ 265</p>
+								<ul>
+									<li>Good old classical paneer tikka with a new makeover.</li>
+								</ul>
+							</div>
+						</ion-col>
+						<ion-col size="3">
+						<div class="quantity">
+							<span class="plus">+</span>
+							<p>1</p>
+							<span class="minus">-</span>
+						</div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+				</ion-item>
+				<ion-item>
+				<ion-grid>
+					<ion-row class="ion-align-items-center">
+						<ion-col size="9" class="pl-0">
+							<div class="drink_content veg">
+								<!-- <img src="assets/veg.png"> -->
+								<h3 class="no-margin">Paneer Multani Tikka</h3>
+								<p class="net">₹ 265</p>
+								<ul>
+									<li>Good old classical paneer tikka with a new makeover.</li>
+								</ul>
+							</div>
+						</ion-col>
+						<ion-col size="3">
+						<div class="quantity quantity--mod">
+							<p>add</p>
+							<span class="plus">+</span>
+						</div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+				</ion-item>
+				<ion-item>
+				<ion-grid>
+					<ion-row class="ion-align-items-center">
+						<ion-col size="9" class="pl-0">
+							<div class="drink_content non-veg">
+								<h3 class="no-margin">Cheese Chicken Balls</h3>
+								<p class="net">₹ 265</p>
+								<ul>
+									<li>Roundels of masala cheese, crumb fried, goes with spicy tomato salsa.</li>
+								</ul>
+							</div>
+						</ion-col>
+						<ion-col size="3">
+						<div class="quantity">
+							<span class="plus">+</span>
+							<p>1</p>
+							<span class="minus">-</span>
+						</div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+				</ion-item>
+			</div>
+			<div class="title_bar">
+				<h2 class="title">Starter</h2>
+			</div>
+			<div class="drink_items">
+				<ion-item>
+				<ion-grid>
+					<ion-row class="ion-align-items-center">
+						<ion-col size="9" class="pl-0">
+							<div class="drink_content veg">
+								<!-- <img src="assets/veg.png"> -->
+								<h3 class="no-margin">Paneer Multani Tikka</h3>
+								<p class="net">₹ 265</p>
+								<ul>
+									<li>Good old classical paneer tikka with a new makeover.</li>
+								</ul>
+							</div>
+						</ion-col>
+						<ion-col size="3">
+						<div class="quantity">
+							<span class="plus">+</span>
+							<p>1</p>
+							<span class="minus">-</span>
+						</div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+				</ion-item>
+				<ion-item>
+				<ion-grid>
+					<ion-row class="ion-align-items-center">
+						<ion-col size="9" class="pl-0">
+							<div class="drink_content veg">
+								<!-- <img src="assets/veg.png"> -->
+								<h3 class="no-margin">Paneer Multani Tikka</h3>
+								<p class="net">₹ 265</p>
+								<ul>
+									<li>Good old classical paneer tikka with a new makeover.</li>
+								</ul>
+							</div>
+						</ion-col>
+						<ion-col size="3">
+						<div class="quantity quantity--mod">
+							<p>add</p>
+							<span class="plus">+</span>
+						</div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+				</ion-item>
+				<ion-item>
+				<ion-grid>
+					<ion-row class="ion-align-items-center">
+						<ion-col size="9" class="pl-0">
+							<div class="drink_content non-veg">
+								<h3 class="no-margin">Cheese Chicken Balls</h3>
+								<p class="net">₹ 265</p>
+								<ul>
+									<li>Roundels of masala cheese, crumb fried, goes with spicy tomato salsa.</li>
+								</ul>
+							</div>
+						</ion-col>
+						<ion-col size="3">
+						<div class="quantity">
+							<span class="plus">+</span>
+							<p>1</p>
+							<span class="minus">-</span>
+						</div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+				</ion-item>
+			</div>
+		</ion-list>
+
+		<ion-list *ngSwitchCase="'combo'">
 			<ion-item>
-		      <ion-grid>
-		      	<ion-row class="ion-align-items-center">
-		    		<ion-col size="9" class="pl-0">
-		    			<div class="drink_content veg">
-		    				<!-- <img src="assets/veg.png"> -->
-		    				<h3 class="no-margin">Paneer Multani Tikka</h3>
-		    				<p class="net">₹ 265</p>
-		    				<ul>
-		    					<li>Good old classical paneer tikka with a new makeover.</li>
-		    				</ul>
-		    			</div>
-				    </ion-col>
-				    <ion-col size="3">
-				      <div class="quantity">
-				      	<span class="plus">+</span>
-				      	<p>1</p>
-				      	<span class="minus">-</span>
-				      </div>
-				    </ion-col>
-				</ion-row>
-		      </ion-grid>
+			<ion-thumbnail item-start>
+				<img src="img/thumbnail-kitten-1.jpg">
+			</ion-thumbnail>
+			<h2>Luna</h2>
 			</ion-item>
-			<ion-item>
-		      <ion-grid>
-		      	<ion-row class="ion-align-items-center">
-		    		<ion-col size="9" class="pl-0">
-		    			<div class="drink_content veg">
-		    				<!-- <img src="assets/veg.png"> -->
-		    				<h3 class="no-margin">Paneer Multani Tikka</h3>
-		    				<p class="net">₹ 265</p>
-		    				<ul>
-		    					<li>Good old classical paneer tikka with a new makeover.</li>
-		    				</ul>
-		    			</div>
-				    </ion-col>
-				    <ion-col size="3">
-				      <div class="quantity quantity--mod">
-				      	<p>add</p>
-				      	<span class="plus">+</span>
-				      </div>
-				    </ion-col>
-				</ion-row>
-		      </ion-grid>
-			</ion-item>
-			<ion-item>
-		      <ion-grid>
-		      	<ion-row class="ion-align-items-center">
-		    		<ion-col size="9" class="pl-0">
-		    			<div class="drink_content non-veg">
-		    				<h3 class="no-margin">Cheese Chicken Balls</h3>
-		    				<p class="net">₹ 265</p>
-		    				<ul>
-		    					<li>Roundels of masala cheese, crumb fried, goes with spicy tomato salsa.</li>
-		    				</ul>
-		    			</div>
-				    </ion-col>
-				    <ion-col size="3">
-				      <div class="quantity">
-				      	<span class="plus">+</span>
-				      	<p>1</p>
-				      	<span class="minus">-</span>
-				      </div>
-				    </ion-col>
-				</ion-row>
-		      </ion-grid>
-			</ion-item>
-		</div>
-		<div class="title_bar">
-			<h2 class="title">rice AND Biryani</h2>
-		</div>
-		<div class="drink_items">
-			<ion-item>
-		      <ion-grid>
-		      	<ion-row class="ion-align-items-center">
-		    		<ion-col size="9" class="pl-0">
-		    			<div class="drink_content veg">
-		    				<!-- <img src="assets/veg.png"> -->
-		    				<h3 class="no-margin">Paneer Multani Tikka</h3>
-		    				<p class="net">₹ 265</p>
-		    				<ul>
-		    					<li>Good old classical paneer tikka with a new makeover.</li>
-		    				</ul>
-		    			</div>
-				    </ion-col>
-				    <ion-col size="3">
-				      <div class="quantity">
-				      	<span class="plus">+</span>
-				      	<p>1</p>
-				      	<span class="minus">-</span>
-				      </div>
-				    </ion-col>
-				</ion-row>
-		      </ion-grid>
-			</ion-item>
-			<ion-item>
-		      <ion-grid>
-		      	<ion-row class="ion-align-items-center">
-		    		<ion-col size="9" class="pl-0">
-		    			<div class="drink_content veg">
-		    				<!-- <img src="assets/veg.png"> -->
-		    				<h3 class="no-margin">Paneer Multani Tikka</h3>
-		    				<p class="net">₹ 265</p>
-		    				<ul>
-		    					<li>Good old classical paneer tikka with a new makeover.</li>
-		    				</ul>
-		    			</div>
-				    </ion-col>
-				    <ion-col size="3">
-				      <div class="quantity quantity--mod">
-				      	<p>add</p>
-				      	<span class="plus">+</span>
-				      </div>
-				    </ion-col>
-				</ion-row>
-		      </ion-grid>
-			</ion-item>
-			<ion-item>
-		      <ion-grid>
-		      	<ion-row class="ion-align-items-center">
-		    		<ion-col size="9" class="pl-0">
-		    			<div class="drink_content non-veg">
-		    				<h3 class="no-margin">Cheese Chicken Balls</h3>
-		    				<p class="net">₹ 265</p>
-		    				<ul>
-		    					<li>Roundels of masala cheese, crumb fried, goes with spicy tomato salsa.</li>
-		    				</ul>
-		    			</div>
-				    </ion-col>
-				    <ion-col size="3">
-				      <div class="quantity">
-				      	<span class="plus">+</span>
-				      	<p>1</p>
-				      	<span class="minus">-</span>
-				      </div>
-				    </ion-col>
-				</ion-row>
-		      </ion-grid>
-			</ion-item>
-		</div>
-	  </ion-list>
-	  <ion-list *ngSwitchCase="'soft-beverage'" class="ion-no-padding">
-	    <div class="title_bar">
-			<h2 class="title">Starter</h2>
-		</div>
-		<div class="drink_items">
-			<ion-item>
-		      <ion-grid>
-		      	<ion-row class="ion-align-items-center">
-		    		<ion-col size="9" class="pl-0">
-		    			<div class="drink_content veg">
-		    				<!-- <img src="assets/veg.png"> -->
-		    				<h3 class="no-margin">Paneer Multani Tikka</h3>
-		    				<p class="net">₹ 265</p>
-		    				<ul>
-		    					<li>Good old classical paneer tikka with a new makeover.</li>
-		    				</ul>
-		    			</div>
-				    </ion-col>
-				    <ion-col size="3">
-				      <div class="quantity">
-				      	<span class="plus">+</span>
-				      	<p>1</p>
-				      	<span class="minus">-</span>
-				      </div>
-				    </ion-col>
-				</ion-row>
-		      </ion-grid>
-			</ion-item>
-			<ion-item>
-		      <ion-grid>
-		      	<ion-row class="ion-align-items-center">
-		    		<ion-col size="9" class="pl-0">
-		    			<div class="drink_content veg">
-		    				<!-- <img src="assets/veg.png"> -->
-		    				<h3 class="no-margin">Paneer Multani Tikka</h3>
-		    				<p class="net">₹ 265</p>
-		    				<ul>
-		    					<li>Good old classical paneer tikka with a new makeover.</li>
-		    				</ul>
-		    			</div>
-				    </ion-col>
-				    <ion-col size="3">
-				      <div class="quantity quantity--mod">
-				      	<p>add</p>
-				      	<span class="plus">+</span>
-				      </div>
-				    </ion-col>
-				</ion-row>
-		      </ion-grid>
-			</ion-item>
-			<ion-item>
-		      <ion-grid>
-		      	<ion-row class="ion-align-items-center">
-		    		<ion-col size="9" class="pl-0">
-		    			<div class="drink_content non-veg">
-		    				<h3 class="no-margin">Cheese Chicken Balls</h3>
-		    				<p class="net">₹ 265</p>
-		    				<ul>
-		    					<li>Roundels of masala cheese, crumb fried, goes with spicy tomato salsa.</li>
-		    				</ul>
-		    			</div>
-				    </ion-col>
-				    <ion-col size="3">
-				      <div class="quantity">
-				      	<span class="plus">+</span>
-				      	<p>1</p>
-				      	<span class="minus">-</span>
-				      </div>
-				    </ion-col>
-				</ion-row>
-		      </ion-grid>
-			</ion-item>
-		</div>
-		<div class="title_bar">
-			<h2 class="title">Starter</h2>
-		</div>
-		<div class="drink_items">
-			<ion-item>
-		      <ion-grid>
-		      	<ion-row class="ion-align-items-center">
-		    		<ion-col size="9" class="pl-0">
-		    			<div class="drink_content veg">
-		    				<!-- <img src="assets/veg.png"> -->
-		    				<h3 class="no-margin">Paneer Multani Tikka</h3>
-		    				<p class="net">₹ 265</p>
-		    				<ul>
-		    					<li>Good old classical paneer tikka with a new makeover.</li>
-		    				</ul>
-		    			</div>
-				    </ion-col>
-				    <ion-col size="3">
-				      <div class="quantity">
-				      	<span class="plus">+</span>
-				      	<p>1</p>
-				      	<span class="minus">-</span>
-				      </div>
-				    </ion-col>
-				</ion-row>
-		      </ion-grid>
-			</ion-item>
-			<ion-item>
-		      <ion-grid>
-		      	<ion-row class="ion-align-items-center">
-		    		<ion-col size="9" class="pl-0">
-		    			<div class="drink_content veg">
-		    				<!-- <img src="assets/veg.png"> -->
-		    				<h3 class="no-margin">Paneer Multani Tikka</h3>
-		    				<p class="net">₹ 265</p>
-		    				<ul>
-		    					<li>Good old classical paneer tikka with a new makeover.</li>
-		    				</ul>
-		    			</div>
-				    </ion-col>
-				    <ion-col size="3">
-				      <div class="quantity quantity--mod">
-				      	<p>add</p>
-				      	<span class="plus">+</span>
-				      </div>
-				    </ion-col>
-				</ion-row>
-		      </ion-grid>
-			</ion-item>
-			<ion-item>
-		      <ion-grid>
-		      	<ion-row class="ion-align-items-center">
-		    		<ion-col size="9" class="pl-0">
-		    			<div class="drink_content non-veg">
-		    				<h3 class="no-margin">Cheese Chicken Balls</h3>
-		    				<p class="net">₹ 265</p>
-		    				<ul>
-		    					<li>Roundels of masala cheese, crumb fried, goes with spicy tomato salsa.</li>
-		    				</ul>
-		    			</div>
-				    </ion-col>
-				    <ion-col size="3">
-				      <div class="quantity">
-				      	<span class="plus">+</span>
-				      	<p>1</p>
-				      	<span class="minus">-</span>
-				      </div>
-				    </ion-col>
-				</ion-row>
-		      </ion-grid>
-			</ion-item>
-		</div>
-	  </ion-list>
-	  <ion-list *ngSwitchCase="'combo'">
-	    <ion-item>
-	      <ion-thumbnail item-start>
-	        <img src="img/thumbnail-kitten-1.jpg">
-	      </ion-thumbnail>
-	      <h2>Luna</h2>
-	    </ion-item>
-	    ...
-	  </ion-list>
+			...
+		</ion-list>
 	</div>
 </ion-content>
 
-<ion-footer class="ion-no-border">
-  <div class="footer_content">
-  	<div class="footer_item_start">
-  		<img src="assets/cart.png">
-  		<div class="item_total">
-  			<p><small>{{addToCart.carts.length}} ITEM IN CART</small></p>
-  			<p class="price_end">₹ {{final_cart_value | number : '.2-2'}}</p>
-  			<p><small>plus taxes*</small></p>
-  		</div>
-  	</div>
-  	<div class="footer_item_end mw_230" (click)="gotoCart()">
-  		<p>View Cart</p>
-  		<img src="assets/arrow-right.png">
-  	</div>
-  </div>
-</ion-footer>
+<div [ngSwitch]="drinks">
+	<ion-footer class="ion-no-border" *ngSwitchCase="'liquor'">
+		<div class="footer_content">
+			<div class="footer_item_start">
+				<img src="assets/cart.png">
+				<div class="item_total">
+					<p><small>{{addToCart.carts.length}} ITEM IN CART</small></p>
+					<p class="price_end">₹ {{final_cart_value | number : '.2-2'}}</p>
+					<p><small>plus taxes*</small></p>
+				</div>
+			</div>
+			<div class="footer_item_end mw_230" (click)="gotoCart()">
+				<p>View Cart</p>
+				<img src="assets/arrow-right.png">
+			</div>
+		</div>
+	</ion-footer>
+
+	<ion-footer class="ion-no-border" *ngSwitchCase="'food'">
+		<div class="footer_content">
+			<div class="footer_item_start">
+				<img src="assets/cart.png">
+				<div class="item_total">
+					<p><small>{{addToFoodCart.foodCart.length}} ITEM IN CART</small></p>
+					<p class="price_end">₹ {{foodCartValue | number : '.2-2'}}</p>
+					<p><small>plus taxes*</small></p>
+				</div>
+			</div>
+			<div class="footer_item_end mw_230" (click)="gotoFoodCart()">
+				<p>View Cart</p>
+				<img src="assets/arrow-right.png">
+			</div>
+		</div>
+	</ion-footer>
+</div>
+

@@ -45,8 +45,9 @@ export class OutlethomePage implements OnInit {
   ) { 
     this.drinks='liquor';
     this.scotch='premium-scotch';
-    console.log(this.scotch);
     this.addToCart = {carts: []};
+    this.addToFoodItem = {foodItem: []}; // Store the Food DATA
+    this.addToFoodCart = {foodCart : []}; // add To Food Cart
   }
 
   ngOnInit() {
@@ -154,7 +155,7 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
         checkout_btn(){
           let uId = this.authService.getUserId();
           localStorage.setItem("user_id",uId);
-      this.userDetails.getCartData(uId).subscribe(
+          this.userDetails.getCartData(uId).subscribe(
           data => {
               this.cart_items = data;
               console.log(data)
@@ -208,9 +209,8 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
           this.navCtrl.navigateForward('/cart');
 
         }
-        public final_cart_value : any =0;
+        public final_cart_value : any = 0;
         minusss(item){     // plus functionality
-
           this.final_cart_value=0;
           this.addToCart.carts = this.addToCart.carts.filter(({ itemId }) => itemId !== item.id); // removing the Duplicasy or 0 selected from Local variable
           item.counter =parseInt(item.counter)  + 1;
@@ -242,7 +242,134 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
           }
         }
 
+        /**************************Food Category and Food Item Work *******************/
+        getFoodCategoryandFoodItem(){
+          this.userDetails.getFoodCategory().subscribe(
+            res => {
+              // this.addToFoodItem.foodItem = []; // doing empty the Interface Class
+              res.forEach((value) => {
+                  this.userDetails.getFoodItemByCategory(value.id).subscribe(
+                    res => {
+                      if(res.length > 0){
+                        let foodItem = res;
+                        // pusing the data in to FoodCategory Interface
+                        this.addToFoodItem.foodItem.push({
+                          id : value.id,
+                          category : value.category,
+                          itemsData : foodItem,
+                        });
+                      }
+                    }
+                  )
+              });
+              console.log(this.addToFoodItem.foodItem);
+            },
+            err => {console.log(err)},
+          )
+        }
 
+        getFoodItemForCategory(foodCategoryId){
+          let data : any = {};
+          this.userDetails.getFoodItemByCategory(foodCategoryId).subscribe(
+            res => {
+              data = res[0];
+            },
+            err => {}
+          )
+        }
+
+        getFoodQuantity(foodItem){
+          let value = this.addToFoodCart.foodCart.find(({ foodItemId }) => foodItemId === foodItem.id);
+          if(value == undefined){
+            return 0;
+          }else{
+            return value.quantity;
+          }
+        }
+
+        public addToFoodItem: {foodItem: FOODCATEGORY[];};
+        public addToFoodCart: {foodCart: FOODITEMCART[];};
+        public foodCartValue = 0;
+
+        foodItemPlus(foodItem){
+          this.foodCartValue = 0;
+          // finding the main Cart 
+          let value = this.addToFoodCart.foodCart.find(({ foodItemId }) => foodItemId === foodItem.id);
+          if(value == undefined){
+            this.addToFoodCart.foodCart.push({
+              categoryId : foodItem.foodCategoryId,
+              foodItemId : foodItem.id,
+              price : foodItem.price,
+              quantity : '1',
+            });
+          }
+          else{
+            value.quantity = (parseInt(value.quantity) - 1).toString();
+            if(value.quantity == '0'){
+              // removing the FoodCart
+              this.addToFoodCart.foodCart = this.addToFoodCart.foodCart.filter(({ foodItemId }) => foodItemId !== foodItem.id);
+            }
+          }
+          let calculatePrice = 0;
+          this.addToFoodCart.foodCart.forEach(function (value) {
+            calculatePrice += parseInt(value.quantity) * parseFloat(value.price);
+          });
+          this.foodCartValue = calculatePrice;
+          // console.log(this.addToFoodCart.foodCart);
+        }
+        
+        foodItemMinus(foodItem){
+          this.foodCartValue=0;
+          // finding the main Cart 
+          let value = this.addToFoodCart.foodCart.find(({ foodItemId }) => foodItemId === foodItem.id);
+          if(value == undefined){
+            this.addToFoodCart.foodCart.push({
+              categoryId : foodItem.foodCategoryId,
+              foodItemId : foodItem.id,
+              price : foodItem.price,
+              quantity : '1',
+            });
+          }
+          else{
+            value.quantity = (parseInt(value.quantity) + 1).toString();
+          }
+          // this.addToFoodCart.foodCart = this.addToFoodCart.foodCart.filter(({ foodItemId }) => foodItemId !== foodItem.id); // removing the Duplicasy or 0 selected from Local variable
+          let calculatePrice = 0;
+          this.addToFoodCart.foodCart.forEach(function (value) {
+            calculatePrice += parseInt(value.quantity) * parseFloat(value.price);
+          });
+          this.foodCartValue = calculatePrice;
+          // console.log(this.addToFoodCart.foodCart);
+        }
+
+        gotoFoodCart(){
+          if(this.addToFoodCart.foodCart.length > 0){
+            // total Item in cart
+            console.log('Total Item in Cart',this.addToFoodCart.foodCart);
+          }else{
+            this.helper.showErrorCustom('Please select any Item');
+          }
+        }
+        /**************************Food Category and Food Item Work END*******************/
+
+
+}
+interface FOODITEMCART{
+  categoryId : string,
+  foodItemId : string,
+  price : string,
+  quantity : string,
+}
+
+interface FOODCATEGORY{
+  id : number,
+  category : string,
+  itemsData : any,
+  // foodItemId : number,
+  // foodCategoryId : string,
+  // item : string,
+  // image : string,
+  // price : any,
 }
 
 interface CARTSITEM {

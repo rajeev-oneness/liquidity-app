@@ -416,4 +416,13 @@ getLiquorDataExceptTheseIds(Ids) {
     return this.afs.collection('/liquorPrice').valueChanges();
 }
 
+getFoodCategory(){
+    return this.afs.collection('/foodCategory').valueChanges();
+}
+
+getFoodItemByCategory(categoryId){
+    return this.afs.collection('/foodItem', ref => ref.where('foodCategoryId', '==', categoryId.toString())
+    ).valueChanges();
+}
+
 }
