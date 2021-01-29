@@ -246,8 +246,9 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
         getFoodCategoryandFoodItem(){
           this.userDetails.getFoodCategory().subscribe(
             res => {
-              // this.addToFoodItem.foodItem = []; // doing empty the Interface Class
+              this.addToFoodItem.foodItem = []; // doing empty the Interface Class
               res.forEach((value) => {
+                  console.log('Response',value);
                   this.userDetails.getFoodItemByCategory(value.id).subscribe(
                     res => {
                       if(res.length > 0){
