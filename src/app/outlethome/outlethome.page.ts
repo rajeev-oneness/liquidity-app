@@ -246,27 +246,29 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
         getFoodCategoryandFoodItem(){
           this.userDetails.getFoodCategory().subscribe(
             res => {
-              this.addToFoodItem.foodItem = []; // doing empty the Interface Class
-              res.forEach((value) => {
-                  console.log('Response',value);
-                  this.userDetails.getFoodItemByCategory(value.id).subscribe(
-                    res => {
-                      if(res.length > 0){
-                        let foodItem = res;
-                        // pusing the data in to FoodCategory Interface
-                        this.addToFoodItem.foodItem.push({
-                          id : value.id,
-                          category : value.category,
-                          itemsData : foodItem,
-                        });
-                      }
-                    }
-                  )
-              });
-              console.log(this.addToFoodItem.foodItem);
+              this.pushDataIntoFOODCATEGORYClass(res);
             },
             err => {console.log(err)},
           )
+        }
+
+        pushDataIntoFOODCATEGORYClass(response){
+          this.addToFoodItem.foodItem = []; // doing empty the Interface Class
+          response.forEach((categoryResponse) => {
+            this.userDetails.getFoodItemByCategory(categoryResponse.id).subscribe(
+              res => {
+                if(res.length > 0){
+                  let foodItem = res;
+                  // pusing the data in to FoodCategory Interface
+                  this.addToFoodItem.foodItem.push({
+                    id : categoryResponse.id,
+                    category : categoryResponse.category,
+                    itemsData : foodItem,
+                  });
+                }
+              }
+            )
+        });
         }
 
         getFoodItemForCategory(foodCategoryId){
