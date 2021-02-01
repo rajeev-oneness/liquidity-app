@@ -6,6 +6,7 @@ import {
 } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import * as firebase from 'firebase';
+import { combineAll } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -273,13 +274,10 @@ export class UserDetailsService {
                  liquorName:liquorName
             });
     }
-    deleteLiquor(pid) {
-        return this.afs
-            .collection('/liquorName')
-            .doc(pid.toString())
-            .delete();
-    }
 
+    deleteLiquor(pid) {
+        return this.afs.collection('/liquorName').doc(pid.toString()).delete();
+    }
 
     UpdateVisions(collection, itemid,visions) {
         return this.afs
@@ -287,142 +285,148 @@ export class UserDetailsService {
             .doc(itemid.toString())
             .update({
                  vision: visions,
-
             });
     }
+
     deleteVisions(pid) {
-        return this.afs
-            .collection('/visions')
-            .doc(pid.toString())
-            .delete();
+        return this.afs.collection('/visions').doc(pid.toString()).delete();
     }
+
     getAllliquorshops() {
         return this.afs.collection('/liquorshops').valueChanges();
     }
+
     getAllliquorCategory() {
         return this.afs.collection('/liquorCategory').valueChanges();
     }
 
+    getLiquorData(id) {
+        return this.afs.collection('/liquorPrice', ref => ref.where('liquorShopId', '==', id)).valueChanges();
+    }
 
+    getLiquorShopById(id) {
+        return this.afs
+            .collection('/liquorshops', ref => ref.where('id', '==', id)).valueChanges();
+    }
+    fetchDataByCollectionId(collection, shopid,categoryid) {
+        return this.afs
+            .collection(`/${collection}`, ref =>
+                ref.where('liquorShopId', '==', shopid).where('liquorCategoryId', '==', categoryid)
+            ).valueChanges();
+    }
 
+    fetchFoodBycategory(collection, shopid) {
+        return this.afs
+            .collection(`/${collection}`, ref =>
+                ref.where('liquorShopId', '==', shopid)
+            ).valueChanges();
+    }
 
+    getCartData(id) {
+        return this.afs.collection('/cartItem', ref => ref.where('user_id', '==', id)).valueChanges();
+    }
+    UpdateCartData(collection, itemid,final_cart,total_value) {
+        return this.afs
+            .collection(`/${collection}`)
+            .doc(itemid.toString())
+            .update({
+                cart_items:final_cart,
+                totalCost:total_value
+            });
+    }
 
+    getLiquorMainCategory(){
+        return this.afs.collection('/liquorCategory').valueChanges();
+    }
 
+    getLiquorItemsByCatgory(categoryMainId){
+        return this.afs.collection('/liquorPrice', ref => ref.where('liquorCategoryId', '==', categoryMainId)
+        ).valueChanges();
+    }
 
+    getLiquorOrderHistory(user_id){
+        return this.afs.collection('/liquorOrderHistory', ref => ref.where('user_id', '==', user_id)
+        ).valueChanges();
+    }
 
-getLiquorData(id) {
-    return this.afs
-        .collection('/liquorPrice', ref => ref.where('liquorShopId', '==', id))
-        .valueChanges();
-}
+    deleteSelectedItemforUserFromCart(){
+        return this.afs.collection('/cartItem').valueChanges();
+    }
 
-getLiquorShopById(id) {
-    return this.afs
-        .collection('/liquorshops', ref => ref.where('id', '==', id))
-        .valueChanges();
-}
-fetchDataByCollectionId(collection, shopid,categoryid) {
-    return this.afs
-        .collection(`/${collection}`, ref =>
-            ref.where('liquorShopId', '==', shopid).where('liquorCategoryId', '==', categoryid)
-        )
-        .valueChanges();
-}
+    addSelectedItemToCart(itemObject,quantity,userId) {
+        let id =new Date().getTime();
+        this.afs.doc(`/cartItem/${id}`).set({
+            id : id,
+            itemId : itemObject.itemId,
+            userId : userId,
+            liquorCategoryId : itemObject.liquorCategoryId,
+            itemsCount : quantity,
+            BigLiquorMaxPrice : itemObject.BigLiquorMaxPrice,
+            BigLiquorMinPrice : itemObject.BigLiquorMinPrice,
+            BigLiquorNormalPrice : itemObject.BigLiquorNormalPrice,
+            liquorCategory : itemObject.liquorCategory,
+            liquorShopId : itemObject.liquorShopId,
+            liquorName : itemObject.liquorName,
+        }, { merge: true });
+    }
 
-fetchFoodBycategory(collection, shopid) {
-    return this.afs
-        .collection(`/${collection}`, ref =>
-            ref.where('liquorShopId', '==', shopid)
-        )
-        .valueChanges();
-}
+    getVaultOrderHistory(userId){
+        return this.afs.collection('/voultOrderHistory', ref => ref.where('userId', '==', userId)
+        ).valueChanges();
+    }
 
-getCartData(id) {
-    return this.afs
-        .collection('/cartItem', ref => ref.where('user_id', '==', id)
-        )
-        .valueChanges();
-}
-UpdateCartData(collection, itemid,final_cart,total_value) {
-    return this.afs
-        .collection(`/${collection}`)
-        .doc(itemid.toString())
-        .update({
-            cart_items:final_cart,
-            totalCost:total_value
+    getVaultOrderDetailsById(orderId,userId){
+        return this.afs.collection('/voultOrderHistory', ref => ref.where('id', '==', orderId).where('userId','==',userId)
+        ).valueChanges();
+    }
+
+    updateVaultLiquorBalance(orderDetails,totalRedeemed,cartPrice,bookingData){
+        return this.afs.collection('/voultOrderHistory').doc(orderDetails.id.toString()).update({
+            redeemed : totalRedeemed,
         });
-}
-getLiquorMainCategory(){
-    return this.afs.collection('/liquorCategory').valueChanges();
-}
+    }
 
-getLiquorItemsByCatgory(categoryMainId){
-    return this.afs.collection('/liquorPrice', ref => ref.where('liquorCategoryId', '==', categoryMainId)
-    ).valueChanges();
-}
+    updateLiquorPriceAfterPurchase(itemId,newPrice){
+        // the Details is the Parameter which is hold all the Information of Liquor price and The New price is Holding the new Price increase or Decrease
+        // here the BigLiquorActualPrice is the base column or for Price Calculation
+        return this.afs.collection('/liquorPrice').doc(itemId.toString()).update({
+            BigLiquorActualPrice : newPrice,
+        });
+    }
 
+    getLiquorDataExceptTheseIds(Ids) {
+        return this.afs.collection('/liquorPrice').valueChanges();
+    }
 
-getLiquorOrderHistory(user_id){
-    return this.afs.collection('/liquorOrderHistory', ref => ref.where('user_id', '==', user_id)
-    ).valueChanges();
-}
+    getFoodCategory(){
+        return this.afs.collection('/foodCategory').valueChanges();
+    }
 
-deleteSelectedItemforUserFromCart(){
-    return this.afs.collection('/cartItem').valueChanges();
-}
+    getFoodItemByCategory(categoryId){
+        return this.afs.collection('/foodItem', ref => ref.where('foodCategoryId', '==', categoryId.toString())
+        ).valueChanges();
+    }
 
-addSelectedItemToCart(itemObject,quantity,userId) {
-    let id =new Date().getTime();
-    this.afs.doc(`/cartItem/${id}`).set({
-        id : id,
-        itemId : itemObject.itemId,
-        userId : userId,
-        liquorCategoryId : itemObject.liquorCategoryId,
-        itemsCount : quantity,
-        BigLiquorMaxPrice : itemObject.BigLiquorMaxPrice,
-        BigLiquorMinPrice : itemObject.BigLiquorMinPrice,
-        BigLiquorNormalPrice : itemObject.BigLiquorNormalPrice,
-        liquorCategory : itemObject.liquorCategory,
-        liquorShopId : itemObject.liquorShopId,
-        liquorName : itemObject.liquorName,
-    }, { merge: true });
-}
-
-getVaultOrderHistory(userId){
-    return this.afs.collection('/voultOrderHistory', ref => ref.where('userId', '==', userId)
-    ).valueChanges();
-}
-
-getVaultOrderDetailsById(orderId,userId){
-    return this.afs.collection('/voultOrderHistory', ref => ref.where('id', '==', orderId).where('userId','==',userId)
-    ).valueChanges();
-}
-
-updateVaultLiquorBalance(orderDetails,totalRedeemed,cartPrice,bookingData){
-    return this.afs.collection('/voultOrderHistory').doc(orderDetails.id.toString()).update({
-        redeemed : totalRedeemed,
-    });
-}
-
-updateLiquorPriceAfterPurchase(itemId,newPrice){
-    // the Details is the Parameter which is hold all the Information of Liquor price and The New price is Holding the new Price increase or Decrease
-    // here the BigLiquorActualPrice is the base column or for Price Calculation
-    return this.afs.collection('/liquorPrice').doc(itemId.toString()).update({
-        BigLiquorActualPrice : newPrice,
-    });
-}
-
-getLiquorDataExceptTheseIds(Ids) {
-    return this.afs.collection('/liquorPrice').valueChanges();
-}
-
-getFoodCategory(){
-    return this.afs.collection('/foodCategory').valueChanges();
-}
-
-getFoodItemByCategory(categoryId){
-    return this.afs.collection('/foodItem', ref => ref.where('foodCategoryId', '==', categoryId.toString())
-    ).valueChanges();
-}
+    addFoodOrderDetails(orderData,userData,logeedInUserId){
+        let id = new Date().getTime();
+        this.afs.doc(`/foodOrder/${id}`).set({
+            id : id,
+            userId : logeedInUserId,
+            foodCategoryId : orderData.categoryId,
+            foodCategoryName : orderData.categoryName,
+            foodItemId : orderData.foodItemId,
+            foodItemName : orderData.itemName,
+            foodItemType : orderData.itemType,
+            price : orderData.price,
+            quantity : orderData.quantity,
+            bookingFor : userData.bookingfor,
+            date : userData.date,
+            time : userData.time,
+            email : userData.email,
+            mobile : userData.mobile,
+            created_at : '',
+        }, { merge: true });
+        return id;
+    }
 
 }

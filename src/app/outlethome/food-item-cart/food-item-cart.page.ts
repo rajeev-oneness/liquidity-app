@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { HelperProvider } from 'src/app/services/helper.service';
+import { UserDetailsService } from 'src/app/services/user-details.service';
 
 @Component({
   selector: 'app-food-item-cart',
@@ -9,7 +10,11 @@ import { HelperProvider } from 'src/app/services/helper.service';
 })
 export class FoodItemCartPage implements OnInit {
 
-  constructor(private helper : HelperProvider,private navCtrl: NavController) {
+  constructor(
+    private helper : HelperProvider,
+    private navCtrl: NavController,
+    private userDetails:UserDetailsService
+  ){
     this.addToFoodCart = {foodCart : []}; // add To Food Cart
   }
 
@@ -26,16 +31,16 @@ export class FoodItemCartPage implements OnInit {
   }
 
   removeItem(foodCart){
-    this.addToFoodCart.foodCart = this.addToFoodCart.foodCart.filter(({ foodItemId }) => foodItemId !== foodCart.foodItemId); // removing the Duplicasy or 0 selected from Local variable
-    let price = 0;
-    this.addToFoodCart.foodCart.forEach((value) => {
-      price += parseFloat(value.price) * parseFloat(value.quantity);
-    });
-    this.totalPrice = price;
+      this.addToFoodCart.foodCart = this.addToFoodCart.foodCart.filter(({ foodItemId }) => foodItemId !== foodCart.foodItemId); // removing the Duplicasy or 0 selected from Local variable
+      let price = 0;
+      this.addToFoodCart.foodCart.forEach((value) => {
+          price += parseFloat(value.price) * parseFloat(value.quantity);
+      });
+      this.totalPrice = price;
   }
 
   public bookingData = {
-    mobile : '', email : '', date : '', time:'',bookingfor:'myself',
+      mobile : '', email : '', date : '', time:'',bookingfor:'myself',
   }
 
   payforFood(){
@@ -50,8 +55,10 @@ export class FoodItemCartPage implements OnInit {
   }
 
   saveDataTotheTable(){
-      console.log('Cart Data',this.addToFoodCart.foodCart);
-      console.log('userData',this.bookingData);
+      let UserId = localStorage.getItem('user_id');
+      this.addToFoodCart.foodCart.forEach((value) => {
+          this.userDetails.addFoodOrderDetails(value,this.bookingData,UserId);
+      });
   }
 }
 
