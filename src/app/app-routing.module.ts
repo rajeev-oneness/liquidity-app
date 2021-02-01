@@ -120,7 +120,11 @@ const routes: Routes = [
   {
     path: 'slide',
     loadChildren: () => import('./slide/slide.module').then( m => m.SlidePageModule)
-  }
+  },
+  {
+    path: 'food/cart',
+    loadChildren: () => import('./outlethome/food-item-cart/food-item-cart.module').then( m => m.FoodItemCartPageModule)
+  },
 ];
 
 @NgModule({

@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController, Platform } from '@ionic/angular';
 import { take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-outlethome',
@@ -41,6 +42,7 @@ export class OutlethomePage implements OnInit {
     private alertCtrl: AlertController,
     private helper: HelperProvider,
     private plt: Platform,
+    private _router : Router,
 
   ) { 
     this.drinks='liquor';
@@ -247,6 +249,7 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
           this.userDetails.getFoodCategory().subscribe(
             res => {
               this.pushDataIntoFOODCATEGORYClass(res);
+              // console.log(res);
             },
             err => {console.log(err)},
           )
@@ -271,7 +274,7 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
         });
         }
 
-        getFoodItemForCategory(foodCategoryId){
+        /*getFoodItemForCategory(foodCategoryId){
           let data : any = {};
           this.userDetails.getFoodItemByCategory(foodCategoryId).subscribe(
             res => {
@@ -279,7 +282,7 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
             },
             err => {}
           )
-        }
+        }*/
 
         getFoodQuantity(foodItem){
           let value = this.addToFoodCart.foodCart.find(({ foodItemId }) => foodItemId === foodItem.id);
@@ -294,7 +297,7 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
         public addToFoodCart: {foodCart: FOODITEMCART[];};
         public foodCartValue = 0;
 
-        foodItemPlus(foodItem){
+        foodItemPlus(foodItem,category){
           this.foodCartValue = 0;
           // finding the main Cart 
           let value = this.addToFoodCart.foodCart.find(({ foodItemId }) => foodItemId === foodItem.id);
@@ -304,6 +307,9 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
               foodItemId : foodItem.id,
               price : foodItem.price,
               quantity : '1',
+              categoryName : category.category,
+              itemName : foodItem.item,
+              itemType : foodItem.veg,
             });
           }
           else{
@@ -318,10 +324,10 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
             calculatePrice += parseInt(value.quantity) * parseFloat(value.price);
           });
           this.foodCartValue = calculatePrice;
-          // console.log(this.addToFoodCart.foodCart);
+          console.log(this.addToFoodCart.foodCart);
         }
         
-        foodItemMinus(foodItem){
+        foodItemMinus(foodItem,category){
           this.foodCartValue=0;
           // finding the main Cart 
           let value = this.addToFoodCart.foodCart.find(({ foodItemId }) => foodItemId === foodItem.id);
@@ -331,6 +337,9 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
               foodItemId : foodItem.id,
               price : foodItem.price,
               quantity : '1',
+              categoryName : category.category,
+              itemName : foodItem.item,
+              itemType : foodItem.veg,
             });
           }
           else{
@@ -342,13 +351,15 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
             calculatePrice += parseInt(value.quantity) * parseFloat(value.price);
           });
           this.foodCartValue = calculatePrice;
-          // console.log(this.addToFoodCart.foodCart);
+          console.log(this.addToFoodCart.foodCart);
         }
 
         gotoFoodCart(){
           if(this.addToFoodCart.foodCart.length > 0){
             // total Item in cart
-            console.log('Total Item in Cart',this.addToFoodCart.foodCart);
+            // console.log('Total Item in Cart',this.addToFoodCart.foodCart);
+            localStorage.setItem('foodItemCart',JSON.stringify(this.addToFoodCart.foodCart));
+            this._router.navigate(['/food/cart']);
           }else{
             this.helper.showErrorCustom('Please select any Item');
           }
@@ -362,6 +373,9 @@ interface FOODITEMCART{
   foodItemId : string,
   price : string,
   quantity : string,
+  categoryName : string,
+  itemName : string,
+  itemType : string,
 }
 
 interface FOODCATEGORY{

@@ -111,11 +111,11 @@
 								</ion-col>
 								<ion-col size="3">
 								<div class="quantity">
-									<div (click)="foodItemPlus(foodItem)">
+									<div (click)="foodItemPlus(foodItem,category)">
 										<span class="plus" >+</span>
 									</div>
 									<p>{{getFoodQuantity(foodItem)}}</p>
-									<div (click)="foodItemMinus(foodItem)">
+									<div (click)="foodItemMinus(foodItem,category)">
 										<span class="minus" >-</span>
 									</div>
 								</div>

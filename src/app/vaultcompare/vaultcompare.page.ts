@@ -122,7 +122,7 @@ interface WHOLELIQUORPRICE {
   itemsCount : string;
   BigLiquorActualPrice : string;
   BigLiquorMaxPrice : string;
-  BigLiquorMinPrice: string;
+  BigLiquorMinPrice : string;
   BigLiquorNormalPrice : string;
   liquorCategory : string;
   liquorShopId : string;

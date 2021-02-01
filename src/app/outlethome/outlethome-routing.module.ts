@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: OutlethomePage
+  },
+  {
+    path: 'food-item-cart',
+    loadChildren: () => import('./food-item-cart/food-item-cart.module').then( m => m.FoodItemCartPageModule)
   }
 ];
 
