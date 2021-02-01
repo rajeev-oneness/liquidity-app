@@ -14,18 +14,28 @@ import { DatePipe } from '@angular/common';
 export class OrderSuccessPage implements OnInit {
 
   constructor(
-    private authService: AuthenticationService,
-    private navCtrl: NavController,
-    private userDetails: UserDetailsService,
-    private alertCtrl: AlertController,
-    private helper: HelperProvider,
-    private plt: Platform,
-    private datePipe: DatePipe
-
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
   }
+
+  public OrderDetails = {
+    name : 'John Doe',
+    phone : '+91 98076 12345',
+    orderId : 'V121980761212345',
+    transactione : 'wallet',
+    date : '29/01/21',
+    time : '02:24 PM',
+    scheduledate : '29/01/21',
+    scheduleTime : '02:24 PM',
+    totalAmount : '890',
+    tax : '45.50',
+    total : '935.50',
+    orderCode : '1136',
+    totalReservation : '2',
+  }
+
   gotoHome(){
     this.navCtrl.navigateRoot('/homenew');
   }
