@@ -124,7 +124,11 @@ const routes: Routes = [
   {
     path: 'food/cart',
     loadChildren: () => import('./outlethome/food-item-cart/food-item-cart.module').then( m => m.FoodItemCartPageModule)
+  },  {
+    path: 'outlet-ordering-menu',
+    loadChildren: () => import('./outlet-ordering-menu/outlet-ordering-menu.module').then( m => m.OutletOrderingMenuPageModule)
   },
+
 ];
 
 @NgModule({

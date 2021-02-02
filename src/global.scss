@@ -537,6 +537,26 @@ ion-footer {
 		left: 0;
 		color: #fff;
 	}
+
+	.rating_number {
+	    position: relative;
+	    width: 40px;
+	    height: 40px;
+	    display: block;
+	    line-height: 40px;
+	    margin: -25px auto 0;
+	    background-color: #5ba829;
+	    border-radius: 50%;
+	    z-index: 9;
+
+		p {
+		    margin: 0;
+		    text-align: center;
+		    font-size: 12px;
+		    color: #ffffff;
+		    font-family: "Nexa Bold" !important;
+		}
+	}
 }
 .heading {
 	color: #33373d;
@@ -1037,4 +1057,63 @@ ion-segment {
 	font-size: 10px;
 	letter-spacing: 0.03px;
 	font-weight: 600;
+}
+.resturant_title_wrap {
+	background-color: #fff;
+	padding: 11px 25px;
+
+	.heading {
+		font-family: "Nexa Bold" !important;
+	    font-size: 18px;
+	    text-align: center;
+	}
+	.content {
+		text-align: center;
+	}
+}
+.btn_group {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.btn-outlet {
+    display: block;
+    margin: 0 auto;
+    width: 145px;
+    height: 32px;
+    --background: #dcc88d;
+    --background-activated: #dcc88d;
+    font-size: 9px;
+    color: #000;
+    font-weight: 700;
+    --box-shadow: none;
+    font-family: "Nexa-Book" !important;
+    text-transform: uppercase;
+}
+.mt-24 {
+	margin-top: 24px;
+}
+.rebate_tag {
+    width: 83px;
+    height: 25px;
+    background: #dcc88d;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -25px auto 10px;
+    font-family: "Nexa Bold" !important;
+    font-size: 11px;
+    color: #111111;
+    letter-spacing: -0.01px;
+}
+.content-2 {
+    color: #808080;
+    font-family: "Nexa-Book" !important;
+    margin-bottom: 12px;
+    text-align: center;
+}
+.content-mod {
+    color: #5ba829;
+    font-size: 11px;
 }

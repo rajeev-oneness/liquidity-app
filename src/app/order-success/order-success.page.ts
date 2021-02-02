@@ -18,6 +18,8 @@ export class OrderSuccessPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    let name = 'rajeev';
+    this.OrderDetails.name =  name
   }
 
   public OrderDetails = {
@@ -35,6 +37,8 @@ export class OrderSuccessPage implements OnInit {
     orderCode : '1136',
     totalReservation : '2',
   }
+
+
 
   gotoHome(){
     this.navCtrl.navigateRoot('/homenew');

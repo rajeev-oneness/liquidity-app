@@ -16,6 +16,12 @@ export class CartPage implements OnInit {
   final_cart_price :any =[];
   shopDetails :any =[];
   today_date :any =[];
+  user :any =[];
+  user_name :any =[];
+  mail :any =[];
+  mobile :any =[];
+  date :any =[];
+  time :any =[];
     constructor(
       private authService: AuthenticationService,
       private navCtrl: NavController,
@@ -34,6 +40,11 @@ export class CartPage implements OnInit {
       var date = new Date();
       // console.log(this.datePipe.transform(date,"dd-MM-yyyy")); //output : 2018-02-13
       this.today_date=String(this.datePipe.transform(date,"dd-MM-yyyy"));
+      this.user = JSON.parse(localStorage.getItem('user_Detais'));
+      console.log(this.user);
+      this.mail=this.user.email;
+      this.user_name=this.user.name;
+      this.mobile=this.user.mobile;
 
   }
   removeItem(index,item){
@@ -43,7 +54,9 @@ export class CartPage implements OnInit {
 
     pay(){
       if(this.cart_items.length > 0){
+        this.today_date=String(this.datePipe.transform(this.date,"dd-MM-yyyy"));
         let uId = this.authService.getUserId();
+        console.log(this.today_date);
         this.authService.liquorOrderHistory(uId,'1140',this.shopDetails.id,this.today_date,'LI123645789','wallet',this.cart_items,'0','0','0',this.final_cart_price,this.shopDetails.image,
         this.shopDetails.liquorShopName);
         this.priceIncreaseOrDecrease();

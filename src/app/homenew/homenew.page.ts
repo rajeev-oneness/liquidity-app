@@ -52,7 +52,9 @@ export class HomenewPage implements OnInit {
   }
 
     gotoshopproduct(liquorshopid,item){
-      this.navCtrl.navigateForward('/outlethome');
+      // this.navCtrl.navigateForward('/outlethome');
+      this.navCtrl.navigateForward('/outlet-ordering-menu');
+
       localStorage.setItem("liquorshopid",liquorshopid);
       localStorage.setItem('shopDetails', JSON.stringify(item));
     }

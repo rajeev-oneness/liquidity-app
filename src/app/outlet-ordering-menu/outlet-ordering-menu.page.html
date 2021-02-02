@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+  		<ion-back-button icon="arrow-back-outline" defaultHref=""></ion-back-button>
+  	</ion-buttons>
+    <!-- <ion-title>SELECTED LOCATION</ion-title> -->
+    <ion-label>SELECTED LOCATION</ion-label>
+    <ion-item>
+    <ion-select value="kolkata">
+      <ion-select-option selected value="kolkata">kolkata</ion-select-option>
+      <ion-select-option value="mumbai">mumbai</ion-select-option>
+      <ion-select-option value="bangalore">bangalore</ion-select-option>
+      <ion-select-option value="delhi">delhi</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-icon slot="end" class="search_item" name="search-outline"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+	<div class="resturant_img_wrap" *ngIf="shopDetails">
+		<img src="{{shopDetails.image}}">
+		<div class="rating_number">
+			<p>4.0</p>
+		</div>
+	</div>
+	<div class="resturant_title_wrap" *ngIf="shopDetails">
+		<h1 class="heading">{{shopDetails.liquorShopName}}</h1>
+		<p class="content">{{shopDetails.liquorLocation}}</p>
+		<div class="br-1"></div>
+		<div class="btn_group">
+			<ion-button class="btn-outlet">CONTACT OUTLET</ion-button>
+			<ion-button class="btn-outlet">VIEW HOUSE RULES</ion-button>
+		</div>
+	</div>
+
+	<div class="resturant_title_wrap mt-24">
+		<div class="rebate_tag">10% OFF</div>
+		<p class="content-2">Get 10% off on all online orders placed through Liquidity above `1000</p>
+		<p class="content content-mod">Auto applied during checkout</p>
+	</div>
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <div class="footer_content">
+  	<div class="footer_item_end mw_230" (click)="gotoOutLet()">
+  		<p>VIEW ONLINE ORDERING MENU</p>
+  		<img src="assets/arrow-right.png">
+  	</div>
+  </div>
+</ion-footer>
