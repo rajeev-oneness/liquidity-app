@@ -246,10 +246,10 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
 
         /**************************Food Category and Food Item Work *******************/
         getFoodCategoryandFoodItem(){
-          this.userDetails.getFoodCategory().subscribe(
+          let shopId = localStorage.getItem('liquorshopid');
+          this.userDetails.getFoodCategory(shopId).subscribe(
             res => {
               this.pushDataIntoFOODCATEGORYClass(res);
-              // console.log(res);
             },
             err => {console.log(err)},
           )
@@ -298,6 +298,7 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
         public foodCartValue = 0;
 
         foodItemPlus(foodItem,category){
+          let shopId = localStorage.getItem('liquorshopid');
           this.foodCartValue = 0;
           // finding the main Cart 
           let value = this.addToFoodCart.foodCart.find(({ foodItemId }) => foodItemId === foodItem.id);
@@ -310,6 +311,7 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
               categoryName : category.category,
               itemName : foodItem.item,
               itemType : foodItem.veg,
+              shopId : shopId,
             });
           }
           else{
@@ -328,6 +330,7 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
         }
         
         foodItemMinus(foodItem,category){
+          let shopId = localStorage.getItem('liquorshopid');
           this.foodCartValue=0;
           // finding the main Cart 
           let value = this.addToFoodCart.foodCart.find(({ foodItemId }) => foodItemId === foodItem.id);
@@ -340,6 +343,7 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
               categoryName : category.category,
               itemName : foodItem.item,
               itemType : foodItem.veg,
+              shopId : shopId,
             });
           }
           else{
@@ -371,6 +375,7 @@ this.userDetails.fetchDataByCollectionId('liquorPrice', this.liquorshopid,"16112
 interface FOODITEMCART{
   categoryId : string,
   foodItemId : string,
+  shopId : string,
   price : string,
   quantity : string,
   categoryName : string,

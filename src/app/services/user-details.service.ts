@@ -398,8 +398,8 @@ export class UserDetailsService {
         return this.afs.collection('/liquorPrice').valueChanges();
     }
 
-    getFoodCategory(){
-        return this.afs.collection('/foodCategory').valueChanges();
+    getFoodCategory(shopId){
+        return this.afs.collection('/foodCategory', ref => ref.where('shopId', '==', shopId)).valueChanges();
     }
 
     getFoodItemByCategory(categoryId){
@@ -418,6 +418,7 @@ export class UserDetailsService {
             foodItemName : orderData.itemName,
             foodItemType : orderData.itemType,
             price : orderData.price,
+            shopId : orderData.shopId,
             quantity : orderData.quantity,
             bookingFor : userData.bookingfor,
             date : userData.date,

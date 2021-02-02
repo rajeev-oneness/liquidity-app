@@ -74,4 +74,5 @@ interface FOODITEMCART{
   categoryName : string,
   itemName : string,
   itemType : string,
+  shopId : string,
 }
