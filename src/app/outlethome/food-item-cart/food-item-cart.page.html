@@ -82,18 +82,38 @@
 				  </ion-row>
 				</ion-grid>
 			  </ion-item>
-			  <ion-item>
-				<ion-grid>
-				  <ion-row class="ion-align-items-center">
-					<ion-input type="text" placeholder="+91 " #mobile="ngModel" [(ngModel)]="bookingData.mobile" name="mobile"></ion-input>
-					<ion-input placeholder="youremail@email.com" type="email" #email="ngModel" [(ngModel)]="bookingData.email" name="email"></ion-input>
-				  </ion-row>
-				  <ion-row>
-					<ion-input type="text" placeholder="date" #date="ngModel" [(ngModel)]="bookingData.date" name="text"></ion-input>
-					<ion-input placeholder="time" type="text" #time="ngModel" [(ngModel)]="bookingData.time" name="text"></ion-input>
-				  </ion-row>
-				</ion-grid>
-			  </ion-item>
+			  	<ion-row>
+				<ion-col size="6">
+					   <ion-item class="circle">
+					  <ion-label>+91</ion-label>
+					  <ion-input placeholder="mobile" [(ngModel)]="bookingData.mobile"></ion-input>
+					</ion-item>
+				</ion-col>
+				<ion-col size="6">
+					<ion-item class="circle">
+						   <ion-input placeholder="youremail@email.com" [(ngModel)]="bookingData.email"></ion-input>
+					   </ion-item>
+				</ion-col>
+				<ion-col size="6">
+					   <ion-item class="circle">
+						<ion-avatar slot="start">
+							<img src="assets/calender.png">
+						  </ion-avatar>
+						  <ion-label>Order Date*</ion-label>
+						  <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="bookingData.date"></ion-datetime>
+						   <!-- <ion-input placeholder="14/02/2018"></ion-input> -->
+					   </ion-item>
+				</ion-col>
+				<ion-col size="6">
+					<ion-item class="circle">
+						<ion-avatar slot="start">
+							<img src="assets/clock.png">
+						  </ion-avatar>
+						  <ion-label>Time</ion-label>
+						  <ion-datetime displayFormat="hh-mm-A" [(ngModel)]="bookingData.time"></ion-datetime>
+					</ion-item>
+				</ion-col>
+				</ion-row>
 			</ion-list>
 		  </div>
 	</div>

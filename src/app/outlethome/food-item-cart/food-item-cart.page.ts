@@ -56,6 +56,10 @@ export class FoodItemCartPage implements OnInit {
 
   saveDataTotheTable(){
       let UserId = localStorage.getItem('user_id');
+      // console.log('Items in Cart',this.addToFoodCart.foodCart);
+      // console.log('UsrId',UserId);
+      // console.log('Booking Data',this.bookingData);
+      
       this.addToFoodCart.foodCart.forEach((value) => {
           this.userDetails.addFoodOrderDetails(value,this.bookingData,UserId);
       });
