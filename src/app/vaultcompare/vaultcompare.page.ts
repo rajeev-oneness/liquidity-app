@@ -47,7 +47,8 @@ export class VaultcomparePage implements OnInit {
       let PriceIncreasingByID = []; // Containing The Id which has Price Higher so that we can skip the Id with the Price Lower
       this.addToCart.carts.forEach((value) => {
         // price Increasing the same Order after the Order Success
-        let nowPrice = parseFloat(value.BigLiquorActualPrice) + parseFloat(this.priceIncreaseByPercentage);
+        let nowPrice = parseFloat(value.BigLiquorActualPrice) + (parseFloat(value.BigLiquorActualPrice) * parseFloat(this.priceIncreaseByPercentage));
+        console.log('Actulal Price : =>'+parseFloat(value.BigLiquorActualPrice)+' => NowPrice: ',nowPrice);
         this.updatePriceValueOfLiquor(value.itemId,nowPrice);
         // Price Decreasing Other Order after Order Success
         PriceIncreasingByID.push(value.itemId);// pusing the Id Which will be Skipped
@@ -68,7 +69,7 @@ export class VaultcomparePage implements OnInit {
   public newData : any = [];
   DeceasePriceValueforTheOrderExceptThisIds(ExceptIds){
     // getting the Whole Liquor Data
-    
+    console.log('Ignore Ids',ExceptIds);
     this._userDetailsApi.getLiquorDataExceptTheseIds(ExceptIds).subscribe(
       res => {
         this.newData = res;
@@ -83,16 +84,12 @@ export class VaultcomparePage implements OnInit {
       // filtering the Ids
       newData.forEach((value) => {
         if(ExceptedID.find(x=>x == value.id) == undefined){
-          // updating the Current Price
-          if(parseFloat(value.BigLiquorActualPrice) >= parseFloat(value.BigLiquorMinPrice) && parseFloat(value.BigLiquorActualPrice) >= parseFloat(value.BigLiquorNormalPrice)){
-            let nowPrice = parseFloat(value.BigLiquorActualPrice) - parseFloat(this.priceDecreaseByPercentage);
-            if(nowPrice < parseFloat(value.BigLiquorMinPrice)){
-              this.updatePriceValueOfLiquor(value.id,value.BigLiquorMinPrice);
-            }
-            else{
-              this.updatePriceValueOfLiquor(value.id,nowPrice);
-            }
+          let nowPrice : any = parseFloat(value.BigLiquorActualPrice) - (parseFloat(value.BigLiquorActualPrice) * parseFloat(this.priceDecreaseByPercentage));
+          if(parseFloat(nowPrice) < parseFloat(value.BigLiquorMinPrice)){
+            nowPrice = parseFloat(value.BigLiquorActualPrice);
           }
+          this.updatePriceValueOfLiquor(value.id,parseFloat(nowPrice));
+          // console.log('Id =>'+value.id+'=>Actulal Price : =>'+parseFloat(value.BigLiquorActualPrice)+' => NowPrice: ',nowPrice+'=>Min price:=>'+value.BigLiquorMinPrice);
         }
       });
   }
